@@ -49,9 +49,9 @@ public class MenuAdministrador extends JPanel {
 		buttonGestionarPersonal.setBounds(25, 420, 147, 21);
 		panelMenuAdministrador.add(buttonGestionarPersonal);
 		
-		JButton buttonAdios = new JButton("Adios");
-		buttonAdios.setFont(new Font("Cambria", Font.PLAIN, 12));
-		buttonAdios.addMouseListener(new MouseAdapter() {
+		JButton buttonCerrarSesión = new JButton("Cerrar Sesión");
+		buttonCerrarSesión.setFont(new Font("Cambria", Font.PLAIN, 12));
+		buttonCerrarSesión.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
 				fabrica.setoPersonaLogueada(null);
@@ -68,8 +68,8 @@ public class MenuAdministrador extends JPanel {
 				
 			}
 		});
-		buttonAdios.setBounds(25, 494, 147, 21);
-		panelMenuAdministrador.add(buttonAdios);
+		buttonCerrarSesión.setBounds(25, 494, 147, 21);
+		panelMenuAdministrador.add(buttonCerrarSesión);
 		
 		JButton buttonControlDeInventario = new JButton("Control de Inventario");
 		buttonControlDeInventario.setFont(new Font("Cambria", Font.PLAIN, 12));

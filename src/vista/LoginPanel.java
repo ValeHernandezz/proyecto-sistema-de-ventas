@@ -12,12 +12,13 @@ import clases.Persona;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JPasswordField;
 
 public class LoginPanel extends JPanel {
 
 	private JTextField textFieldMail;
-	private JTextField textFieldClave;
 	private Fabrica oFabrica = new Fabrica();
+	private JPasswordField passwordFieldClave;
 
 	/**
 	 * Create the panel.
@@ -33,36 +34,38 @@ public class LoginPanel extends JPanel {
 
 		JLabel labelIniciarSesion = new JLabel("Iniciar Sesión");
 		labelIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
-		labelIniciarSesion.setFont(new Font("Tahoma", Font.BOLD, 30));
-		labelIniciarSesion.setBounds(271, 181, 255, 29);
+		labelIniciarSesion.setFont(new Font("Cambria", Font.BOLD, 40));
+		labelIniciarSesion.setBounds(263, 181, 271, 29);
 		panelLogin.add(labelIniciarSesion);
 
 		JLabel labelMail = new JLabel("Mail");
-		labelMail.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelMail.setBounds(297, 242, 99, 13);
+		labelMail.setFont(new Font("Cambria", Font.PLAIN, 15));
+		labelMail.setBounds(275, 242, 85, 13);
 		panelLogin.add(labelMail);
 
 		textFieldMail = new JTextField();
+		textFieldMail.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldMail.setColumns(10);
-		textFieldMail.setBounds(406, 241, 96, 19);
+		textFieldMail.setBounds(366, 239, 156, 19);
 		panelLogin.add(textFieldMail);
-
-		textFieldClave = new JTextField();
-		textFieldClave.setColumns(10);
-		textFieldClave.setBounds(406, 282, 96, 19);
-		panelLogin.add(textFieldClave);
+		
+		passwordFieldClave = new JPasswordField();
+		passwordFieldClave.setFont(new Font("Cambria", Font.PLAIN, 13));
+		passwordFieldClave.setBounds(366, 280, 156, 19);
+		panelLogin.add(passwordFieldClave);
 
 		JLabel labelClave = new JLabel("Contraseña");
-		labelClave.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelClave.setBounds(297, 283, 99, 13);
+		labelClave.setFont(new Font("Cambria", Font.PLAIN, 15));
+		labelClave.setBounds(277, 283, 85, 13);
 		panelLogin.add(labelClave);
 
 		JButton buttonIngresar = new JButton("Ingresar");
+		buttonIngresar.setFont(new Font("Cambria", Font.PLAIN, 13));
 		buttonIngresar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
 				String mail = textFieldMail.getText();
-				String clave = textFieldClave.getText();
+				String clave = passwordFieldClave.getText();
 
 				if (mail.length() < 7 || clave.length() < 3) {
 					JOptionPane.showMessageDialog(null, "Campos incompletos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -87,8 +90,6 @@ public class LoginPanel extends JPanel {
 
 						if (existePersona.getIdRol() == 1) {
 
-							JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-									JOptionPane.INFORMATION_MESSAGE);
 							MenuAdministrador menuAdministrador = new MenuAdministrador(panel);
 							menuAdministrador.setSize(200, 550);
 							menuAdministrador.setLocation(0, 0);
@@ -99,8 +100,6 @@ public class LoginPanel extends JPanel {
 
 						if (existePersona.getIdRol() == 2) {
 
-							JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-									JOptionPane.INFORMATION_MESSAGE);
 							MenuOperador menuOperador = new MenuOperador(panel);
 							menuOperador.setSize(200, 550);
 							menuOperador.setLocation(0, 0);
@@ -111,8 +110,6 @@ public class LoginPanel extends JPanel {
 
 						if (existePersona.getIdRol() == 3) {
 
-							JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-									JOptionPane.INFORMATION_MESSAGE);
 							MenuJefe menuJefe = new MenuJefe(panel);
 							menuJefe.setSize(200, 550);
 							menuJefe.setLocation(0, 0);
@@ -136,5 +133,4 @@ public class LoginPanel extends JPanel {
 		panelLogin.add(buttonIngresar);
 
 	}
-
 }

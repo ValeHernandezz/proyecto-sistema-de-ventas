@@ -18,7 +18,7 @@ public class DAOPersona {
 
 	private static final String INSERTAR_PERSONA = "INSERT INTO PERSONA (ID_PERSONA, DOCUMENTO, NOMBRE1, NOMBRE2, APELLIDO1, APELLIDO2, FECHA_NAC, CLAVE, ID_ROL, MAIL) VALUES (SEQ_ID_PERS.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	private static final String EDITAR_PERSONA = "UPDATE PERSONA SET NOMBRE1 = ?, NOMBRE2 = ?, APELLIDO1 = ?, APELLIDO2 = ?, FECHA_NAC = ?, CLAVE = ?, ID_ROL = ?, MAIL = ? WHERE DOCUMENTO = ?";
+	private static final String EDITAR_PERSONA = "UPDATE PERSONA SET NOMBRE1 = ?, NOMBRE2 = ?, APELLIDO1 = ?, APELLIDO2 = ?, FECHA_NAC = ?, ID_ROL = ?, MAIL = ? WHERE DOCUMENTO = ?";
 	
 	private static final String ELIMINAR_PERSONA = "DELETE FROM PERSONA WHERE DOCUMENTO = ?";
 	
@@ -31,13 +31,13 @@ public class DAOPersona {
 	public DAOPersona() {
 		consultasPersonalizadas = new HashMap<String, String>();
 		consultasPersonalizadas.put("Nombres",
-				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE NOMBRE1 = ? OR NOMBRE2 = ? ORDER BY ID_PERSONA");
+				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE NOMBRE1 LIKE ? OR NOMBRE2 LIKE ? ORDER BY ID_PERSONA");
 		consultasPersonalizadas.put("Apellidos",
-				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE APELLIDO1 = ? OR APELLIDO2 = ? ORDER BY ID_PERSONA");
+				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE APELLIDO1 LIKE ? OR APELLIDO2 LIKE ? ORDER BY ID_PERSONA");
 		consultasPersonalizadas.put("Documento",
 				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE DOCUMENTO = ? ORDER BY ID_PERSONA");
 		consultasPersonalizadas.put("Rol",
-				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE r.NOMBRE = ? ORDER BY ID_PERSONA");
+				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE r.NOMBRE LIKE ? ORDER BY ID_PERSONA");
 	}
 
 	// _____________________________________________________________________________________________________________________
@@ -158,10 +158,10 @@ public class DAOPersona {
 			sentencia.setString(3, oPersona.getApellido1());
 			sentencia.setString(4, oPersona.getApellido2());
 			sentencia.setDate(5, Date.valueOf(oPersona.getFechaNacimiento()));
-			sentencia.setString(6, oPersona.getClave());
-			sentencia.setInt(7, oPersona.getIdRol());
-			sentencia.setString(8, oPersona.getMail());
-			sentencia.setString(9, oPersona.getDocumento());
+//			sentencia.setString(6, oPersona.getClave());
+			sentencia.setInt(6, oPersona.getIdRol());
+			sentencia.setString(7, oPersona.getMail());
+			sentencia.setString(8, oPersona.getDocumento());
 			
 			int retorno = sentencia.executeUpdate();
 			
@@ -288,8 +288,8 @@ public class DAOPersona {
 				
 				PreparedStatement sentencia = conexion.prepareStatement(consultasPersonalizadas.get("Nombres"));
 				
-				sentencia.setString(1, datos);
-				sentencia.setString(2, datos);
+				sentencia.setString(1, datos + "%");
+				sentencia.setString(2, datos + "%");
 				
 				ResultSet resultado = sentencia.executeQuery();
 
@@ -303,7 +303,9 @@ public class DAOPersona {
 				e.printStackTrace();
 				listaDePersonas = null;
 			}
+			
 			return listaDePersonas;
+			
 		}
 		
 		if (filtro.equals("Apellidos")) {
@@ -312,8 +314,8 @@ public class DAOPersona {
 				
 				PreparedStatement sentencia = conexion.prepareStatement(consultasPersonalizadas.get("Apellidos"));
 				
-				sentencia.setString(1, datos);
-				sentencia.setString(2, datos);
+				sentencia.setString(1, datos + "%");
+				sentencia.setString(2, datos + "%");
 				
 				ResultSet resultado = sentencia.executeQuery();
 
@@ -357,7 +359,7 @@ public class DAOPersona {
 				
 				PreparedStatement sentencia = conexion.prepareStatement(consultasPersonalizadas.get("Rol"));
 				
-				sentencia.setString(1, datos);
+				sentencia.setString(1, datos + "%");
 				
 				ResultSet resultado = sentencia.executeQuery();
 
