@@ -21,7 +21,7 @@ public class Fabrica {
 		
 		Persona oPersona = oFabricaBD.login(mail, clave);
 		
-		if(oPersona.getDocumento() != null) {
+		if(oPersona != null) {
 			setoPersonaLogueada(oPersona);
 		}
 		

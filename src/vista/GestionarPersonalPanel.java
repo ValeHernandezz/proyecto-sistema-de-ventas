@@ -43,7 +43,7 @@ public class GestionarPersonalPanel extends JPanel {
 	private Fabrica fabrica = new Fabrica();
 	private JTable table = new JTable();
 	private JTextField textFieldBuscar;
-	JComboBox comboBoxFiltroBuscar = new JComboBox();
+	private JComboBox comboBoxFiltroBuscar = new JComboBox();
 
 	/**
 	 * Create the panel.
@@ -147,29 +147,21 @@ public class GestionarPersonalPanel extends JPanel {
 				Persona oPersona = new Persona(documento, nombre1, nombre2, apellido1, apellido2, fechaNacimiento,
 						clave, idRol, mail);
 
-				try {
+				boolean respuesta = fabrica.registrarPersona(oPersona);
 
-					boolean respuesta = fabrica.registrarPersona(oPersona);
+				if (respuesta) {
 
-					if (respuesta) {
+					JOptionPane.showMessageDialog(null, "Se ha ingresado una persona correctamente", "Éxito",
+							JOptionPane.INFORMATION_MESSAGE);
+					limpiarCampos();
+					textFieldDocumento.setText(null);
+					return;
 
-						JOptionPane.showMessageDialog(null, "Se ha ingresado una persona correctamente", "Éxito",
-								JOptionPane.INFORMATION_MESSAGE);
-						limpiarCampos();
-						textFieldDocumento.setText(null);
-						return;
+				} else {
 
-					} else {
-
-						JOptionPane.showMessageDialog(null, "No se ha podido ingresar una persona", "Error",
-								JOptionPane.ERROR_MESSAGE);
-						return;
-
-					}
-
-				} catch (Exception e2) {
-
-					e2.printStackTrace();
+					JOptionPane.showMessageDialog(null, "No se ha podido ingresar una persona", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
 
 				}
 
@@ -191,14 +183,16 @@ public class GestionarPersonalPanel extends JPanel {
 
 				if (textFieldDia.getText().equals("Día") || textFieldMes.getText().equals("Mes")
 						|| textFieldAnio.getText().equals("Año")) {
-					JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
+							JOptionPane.ERROR_MESSAGE);
 					return;
 
 				}
-				
+
 				if (textFieldDia.getText().equals("") || textFieldMes.getText().equals("")
 						|| textFieldAnio.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
+							JOptionPane.ERROR_MESSAGE);
 					return;
 
 				}
@@ -223,29 +217,21 @@ public class GestionarPersonalPanel extends JPanel {
 				Persona oPersona = new Persona(documento, nombre1, nombre2, apellido1, apellido2, fechaNacimiento,
 						idRol, mail);
 
-				try {
+				boolean respuesta = fabrica.editarPersona(oPersona);
 
-					boolean respuesta = fabrica.editarPersona(oPersona);
+				if (respuesta) {
 
-					if (respuesta) {
+					JOptionPane.showMessageDialog(null, "Se ha modificado la persona correctamente", "Éxito",
+							JOptionPane.INFORMATION_MESSAGE);
+					limpiarCampos();
+					textFieldDocumento.setText(null);
+					return;
 
-						JOptionPane.showMessageDialog(null, "Se ha modificado la persona correctamente", "Éxito",
-								JOptionPane.INFORMATION_MESSAGE);
-						limpiarCampos();
-						textFieldDocumento.setText(null);
-						return;
+				} else {
 
-					} else {
-
-						JOptionPane.showMessageDialog(null, "No existe la persona que desea modificar", "Error",
-								JOptionPane.ERROR_MESSAGE);
-						return;
-
-					}
-
-				} catch (Exception e2) {
-
-					e2.printStackTrace();
+					JOptionPane.showMessageDialog(null, "No existe la persona que desea modificar", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
 
 				}
 
@@ -269,28 +255,20 @@ public class GestionarPersonalPanel extends JPanel {
 
 				}
 
-				try {
+				boolean respuesta = fabrica.eliminarPersona(documento);
 
-					boolean respuesta = fabrica.eliminarPersona(documento);
+				if (respuesta) {
 
-					if (respuesta) {
+					JOptionPane.showMessageDialog(null, "La persona se ha eliminado con éxito", "Éxito",
+							JOptionPane.INFORMATION_MESSAGE);
+					textFieldDocumento.setText(null);
+					return;
 
-						JOptionPane.showMessageDialog(null, "La persona se ha eliminado con éxito", "Éxito",
-								JOptionPane.INFORMATION_MESSAGE);
-						textFieldDocumento.setText(null);
-						return;
+				} else {
 
-					} else {
-
-						JOptionPane.showMessageDialog(null, "No se ha podido eliminar la persona", "Error",
-								JOptionPane.ERROR_MESSAGE);
-						return;
-
-					}
-
-				} catch (Exception e2) {
-
-					e2.printStackTrace();
+					JOptionPane.showMessageDialog(null, "No se ha podido eliminar la persona", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
 
 				}
 
@@ -477,10 +455,10 @@ public class GestionarPersonalPanel extends JPanel {
 				String filtros = comboBoxFiltroBuscar.getSelectedItem().toString();
 				int indexFiltro = comboBoxFiltroBuscar.getSelectedIndex();
 
-				if (datos.length() < 3) {
+				if (datos.length() < 1) {
 
-					JOptionPane.showMessageDialog(null, "Debe ingresar un dato de la persona que desea buscar",
-							"Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Debe ingresar un dato de la persona que desea buscar", "Error",
+							JOptionPane.ERROR_MESSAGE);
 					return;
 
 				}
@@ -498,13 +476,13 @@ public class GestionarPersonalPanel extends JPanel {
 				if (listaPersonas.size() != 0) {
 
 					if (!filtros.equals("Documento")) {
-						
+
 						limpiarCamposDeBusqueda();
 						TableModelPersona tablaPersonas = new TableModelPersona(listaPersonas);
 						table.setModel(tablaPersonas);
 						System.out.println("Entro acá");
 						return;
-						
+
 					} else {
 
 						for (Persona p : listaPersonas) {
@@ -559,10 +537,10 @@ public class GestionarPersonalPanel extends JPanel {
 		JButton buttonLimpiarBusqueda = new JButton("Limpiar Búsqueda");
 		buttonLimpiarBusqueda.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				
+
 				textFieldBuscar.setText(null);
 				comboBoxFiltroBuscar.setSelectedIndex(0);
-				
+
 			}
 		});
 		buttonLimpiarBusqueda.setFont(new Font("Cambria", Font.PLAIN, 13));
@@ -587,12 +565,12 @@ public class GestionarPersonalPanel extends JPanel {
 		JButton buttonLimpiarTabla = new JButton("Limpiar Tabla");
 		buttonLimpiarTabla.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				
+
 				ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
-				
+
 				TableModelPersona tableModelPersona = new TableModelPersona(listaPersonas);
-				table.setModel(tableModelPersona);				
-				
+				table.setModel(tableModelPersona);
+
 			}
 		});
 		buttonLimpiarTabla.setFont(new Font("Cambria", Font.PLAIN, 13));

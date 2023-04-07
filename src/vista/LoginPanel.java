@@ -48,7 +48,7 @@ public class LoginPanel extends JPanel {
 		textFieldMail.setColumns(10);
 		textFieldMail.setBounds(426, 236, 156, 19);
 		panelLogin.add(textFieldMail);
-		
+
 		passwordFieldClave = new JPasswordField();
 		passwordFieldClave.setFont(new Font("Cambria", Font.PLAIN, 13));
 		passwordFieldClave.setBounds(426, 288, 156, 19);
@@ -72,66 +72,58 @@ public class LoginPanel extends JPanel {
 					return;
 				}
 
-				try {
+				Persona existePersona = oFabrica.login(mail, clave);
 
-					Persona existePersona = oFabrica.login(mail, clave);
+				if (existePersona == null) {
+					JOptionPane.showMessageDialog(null, "No existe la persona", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 
-					if (existePersona == null) {
-						JOptionPane.showMessageDialog(null, "No existe la persona", "Error", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
+				BienvenidoPanel panelBienvenido = new BienvenidoPanel();
+				panelBienvenido.setSize(798, 550);
+				panelBienvenido.setLocation(0, 0);
+				panel.mostrarPanelContent(panelBienvenido);
 
-					BienvenidoPanel panelBienvenido = new BienvenidoPanel();
-					panelBienvenido.setSize(798, 550);
-					panelBienvenido.setLocation(0, 0);
-					panel.mostrarPanelContent(panelBienvenido);
+				if (existePersona != null) {
 
-					if (existePersona != null) {
-						
-						panel.mostrarMenu();
-						
-						if (existePersona.getIdRol() == 1) {
+					panel.mostrarMenu();
 
-							
-							MenuAdministrador menuAdministrador = new MenuAdministrador(panel);
-							menuAdministrador.setSize(200, 550);
-							menuAdministrador.setLocation(0, 0);
-							panel.mostrarPanelMenu(menuAdministrador);
-							return;
+					if (existePersona.getIdRol() == 1) {
 
-						}
-
-						if (existePersona.getIdRol() == 2) {
-
-							JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-									JOptionPane.INFORMATION_MESSAGE);
-							MenuOperador menuOperador = new MenuOperador(panel);
-							menuOperador.setSize(200, 550);
-							menuOperador.setLocation(0, 0);
-							panel.mostrarPanelMenu(menuOperador);
-							return;
-
-						}
-
-						if (existePersona.getIdRol() == 3) {
-
-							JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-									JOptionPane.INFORMATION_MESSAGE);
-							MenuJefe menuJefe = new MenuJefe(panel);
-							menuJefe.setSize(200, 550);
-							menuJefe.setLocation(0, 0);
-							panel.mostrarPanelMenu(menuJefe);
-							return;
-
-						}
-
+						MenuAdministrador menuAdministrador = new MenuAdministrador(panel);
+						menuAdministrador.setSize(200, 550);
+						menuAdministrador.setLocation(0, 0);
+						panel.mostrarPanelMenu(menuAdministrador);
 						return;
 
 					}
 
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Error en la Base de Datos", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					if (existePersona.getIdRol() == 2) {
+
+						JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
+								JOptionPane.INFORMATION_MESSAGE);
+						MenuOperador menuOperador = new MenuOperador(panel);
+						menuOperador.setSize(200, 550);
+						menuOperador.setLocation(0, 0);
+						panel.mostrarPanelMenu(menuOperador);
+						return;
+
+					}
+
+					if (existePersona.getIdRol() == 3) {
+
+						JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
+								JOptionPane.INFORMATION_MESSAGE);
+						MenuJefe menuJefe = new MenuJefe(panel);
+						menuJefe.setSize(200, 550);
+						menuJefe.setLocation(0, 0);
+						panel.mostrarPanelMenu(menuJefe);
+						return;
+
+					}
+
+					return;
+
 				}
 
 			}

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import clases.Persona;
 
 public class DAOPersona {
-	
+
 	private static final String LOGIN_PERSONA = "SELECT * FROM PERSONA WHERE MAIL = ? AND CLAVE = ?";
 
 	private static final String ALL_PERSONAS = "SELECT * FROM PERSONA ORDER BY 1";
@@ -19,13 +19,13 @@ public class DAOPersona {
 	private static final String INSERTAR_PERSONA = "INSERT INTO PERSONA (ID_PERSONA, DOCUMENTO, NOMBRE1, NOMBRE2, APELLIDO1, APELLIDO2, FECHA_NAC, CLAVE, ID_ROL, MAIL) VALUES (SEQ_ID_PERS.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String EDITAR_PERSONA = "UPDATE PERSONA SET NOMBRE1 = ?, NOMBRE2 = ?, APELLIDO1 = ?, APELLIDO2 = ?, FECHA_NAC = ?, ID_ROL = ?, MAIL = ? WHERE DOCUMENTO = ?";
-	
+
 	private static final String ELIMINAR_PERSONA = "DELETE FROM PERSONA WHERE DOCUMENTO = ?";
-	
+
 	private static final String LISTAR_PERSONAS = "SELECT p.ID_PERSONA, p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL ORDER BY ID_PERSONA";
-	
+
 	private static final String BUSCAR_PERSONA = "SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE DOCUMENTO = ? ORDER BY ID_PERSONA";
-	
+
 	private static HashMap<String, String> consultasPersonalizadas;
 
 	public DAOPersona() {
@@ -56,7 +56,7 @@ public class DAOPersona {
 			ResultSet resultado = sentencia.executeQuery();
 
 			if (resultado.next()) {
-				
+
 				int idPersonaResultado = resultado.getInt("ID_PERSONA");
 				String documentoResultado = resultado.getString("DOCUMENTO");
 				String primerNombreResultado = resultado.getString("NOMBRE1");
@@ -69,19 +69,19 @@ public class DAOPersona {
 				LocalDate fechaNacimientoResultado = fechaAuxiliar.toLocalDate();
 				int rolResultado = resultado.getInt("ID_ROL");
 				String mailResultado = resultado.getString("MAIL");
-				
+
 				oPersonaExiste = new Persona(idPersonaResultado, documentoResultado, primerNombreResultado,
 						segundoNombreResultado, primerApellidoResultado, segundoApellidoResultado,
 						fechaNacimientoResultado, rolResultado, mailResultado);
-				
+
 			}
+			return oPersonaExiste;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-
-		return oPersonaExiste;
-
+		
 	}
 
 	// _____________________________________________________________________________________________________________________
@@ -144,15 +144,15 @@ public class DAOPersona {
 
 		}
 	}
-	
+
 	// __________________________________________________________________________________________________________________________________________________
 	// MÉTODO PARA EDITAR LOS DATOS DE UNA PERSONA DE LA TABLA PERSONA
 	public static boolean editarPersona(Persona oPersona) {
-		
+
 		try {
-			
+
 			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(EDITAR_PERSONA);
-			
+
 			sentencia.setString(1, oPersona.getNombre1());
 			sentencia.setString(2, oPersona.getNombre2());
 			sentencia.setString(3, oPersona.getApellido1());
@@ -162,57 +162,57 @@ public class DAOPersona {
 			sentencia.setInt(6, oPersona.getIdRol());
 			sentencia.setString(7, oPersona.getMail());
 			sentencia.setString(8, oPersona.getDocumento());
-			
+
 			int retorno = sentencia.executeUpdate();
-			
+
 			return retorno > 0;
-			
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			return false;
-			
+
 		}
-		
+
 	}
-	
+
 	// __________________________________________________________________________________________________________________________________________________
 	// MÉTODO PARA ELIMINAR UNA PERSONA (BAJA FÍSICA)
 	public static boolean eliminarPersona(String documento) {
-		
+
 		try {
-			
+
 			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(ELIMINAR_PERSONA);
-			
+
 			sentencia.setString(1, documento);
-			
+
 			int retorno = sentencia.executeUpdate();
-			
+
 			return retorno > 0;
-			
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			return false;
-			
+
 		}
-		
+
 	}
-	
+
 	// __________________________________________________________________________________________________________________________________________________
 	// MÉTODO PARA OBTENER UNA LISTA CON TODAS LAS PERSONAS DE LA TABLA PERSONA
-	public static ArrayList<Persona> listarPersonas(){
-		
+	public static ArrayList<Persona> listarPersonas() {
+
 		ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
-		
+
 		try {
-			
+
 			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(LISTAR_PERSONAS);
-			
+
 			ResultSet resultado = sentencia.executeQuery();
-			
-			while(resultado.next()) {
-				
+
+			while (resultado.next()) {
+
 				String documentoResultado = resultado.getString("DOCUMENTO");
 				String nombre1Resultado = resultado.getString("NOMBRE1");
 				String nombre2Resultado = resultado.getString("NOMBRE2");
@@ -223,151 +223,151 @@ public class DAOPersona {
 				String rolResultado = resultado.getString("ROL");
 				String mailResultado = resultado.getString("MAIL");
 
-				nombre2Resultado = nombre2Resultado != null ? nombre2Resultado : "-"; 	// Si el segundo nombre está vacío, se
+				nombre2Resultado = nombre2Resultado != null ? nombre2Resultado : "-"; // Si el segundo nombre está
+																						// vacío, se
 																						// ingresa un guión en remplazo.
 
 				Persona oPersona = new Persona(documentoResultado, nombre1Resultado, nombre2Resultado,
-						apellido1Resultado, apellido2Resultado, fechaNacimientoResultado, rolResultado,
-						mailResultado);
-				
+						apellido1Resultado, apellido2Resultado, fechaNacimientoResultado, rolResultado, mailResultado);
+
 				listaPersonas.add(oPersona);
-				
+
 			}
-			
+
 			return listaPersonas;
-			
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			return null;
-			
+
 		}
-		
+
 	}
-	
+
 	// __________________________________________________________________________________________________________________________________________________
 	// MÉTODO PARA BUSCAR UNA PERSONA
 	public static ArrayList<Persona> buscarPersona(String documento) {
-		
+
 		try {
-			
+
 			ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
-			
+
 			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(BUSCAR_PERSONA);
-			
+
 			sentencia.setString(1, documento);
-			
+
 			ResultSet resultado = sentencia.executeQuery();
-			
-			while(resultado.next()) {
-				
+
+			while (resultado.next()) {
+
 				Persona oPersona = getPersonaFromResultSet(resultado);
 				listaPersonas.add(oPersona);
-				
+
 			}
-			
+
 			return listaPersonas;
-			
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			return null;
-			
+
 		}
-		
+
 	}
-	
+
 	public ArrayList<Persona> buscarPersona(String datos, String filtro) {
 		ArrayList<Persona> listaDePersonas = new ArrayList<Persona>();
 
 		Connection conexion = DataBaseManager.getConnection();
-		
+
 		if (filtro.equals("Nombres")) {
-			
+
 			try {
-				
+
 				PreparedStatement sentencia = conexion.prepareStatement(consultasPersonalizadas.get("Nombres"));
-				
-				sentencia.setString(1, datos + "%");
-				sentencia.setString(2, datos + "%");
-				
+
+				sentencia.setString(1, "%" + datos + "%");
+				sentencia.setString(2, "%" + datos + "%");
+
 				ResultSet resultado = sentencia.executeQuery();
 
 				while (resultado.next()) {
-					
+
 					Persona oPersona = getPersonaFromResultSet(resultado);
 					listaDePersonas.add(oPersona);
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				listaDePersonas = null;
 			}
-			
+
 			return listaDePersonas;
-			
+
 		}
-		
+
 		if (filtro.equals("Apellidos")) {
-			
+
 			try {
-				
+
 				PreparedStatement sentencia = conexion.prepareStatement(consultasPersonalizadas.get("Apellidos"));
-				
-				sentencia.setString(1, datos + "%");
-				sentencia.setString(2, datos + "%");
-				
+
+				sentencia.setString(1, "%" + datos + "%");
+				sentencia.setString(2, "%" + datos + "%");
+
 				ResultSet resultado = sentencia.executeQuery();
 
 				while (resultado.next()) {
 					Persona oPersona = getPersonaFromResultSet(resultado);
 					listaDePersonas.add(oPersona);
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				listaDePersonas = null;
 			}
 			return listaDePersonas;
 		}
-		
+
 		if (filtro.equals("Documento")) {
-			
+
 			try {
-				
+
 				PreparedStatement sentencia = conexion.prepareStatement(consultasPersonalizadas.get("Documento"));
-				
+
 				sentencia.setString(1, datos);
-				
+
 				ResultSet resultado = sentencia.executeQuery();
 
 				while (resultado.next()) {
 					Persona oPersona = getPersonaFromResultSet(resultado);
 					listaDePersonas.add(oPersona);
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				listaDePersonas = null;
 			}
 			return listaDePersonas;
 		}
-		
+
 		if (filtro.equals("Rol")) {
-			
+
 			try {
-				
+
 				PreparedStatement sentencia = conexion.prepareStatement(consultasPersonalizadas.get("Rol"));
-				
-				sentencia.setString(1, datos + "%");
-				
+
+				sentencia.setString(1, "%" + datos + "%");
+
 				ResultSet resultado = sentencia.executeQuery();
 
 				while (resultado.next()) {
 					Persona oPersona = getPersonaFromResultSet(resultado);
 					listaDePersonas.add(oPersona);
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				listaDePersonas = null;
@@ -391,12 +391,11 @@ public class DAOPersona {
 		String rolResultado = resultado.getString("ROL");
 		String mailResultado = resultado.getString("MAIL");
 
-		nombre2Resultado = nombre2Resultado != null ? nombre2Resultado : "-"; 	// Si el segundo nombre está vacío, se
+		nombre2Resultado = nombre2Resultado != null ? nombre2Resultado : "-"; // Si el segundo nombre está vacío, se
 																				// ingresa un guión en remplazo.
 
-		Persona oPersona = new Persona(documentoResultado, nombre1Resultado, nombre2Resultado,
-				apellido1Resultado, apellido2Resultado, fechaNacimientoResultado, rolResultado,
-				mailResultado);
+		Persona oPersona = new Persona(documentoResultado, nombre1Resultado, nombre2Resultado, apellido1Resultado,
+				apellido2Resultado, fechaNacimientoResultado, rolResultado, mailResultado);
 
 		return oPersona;
 
