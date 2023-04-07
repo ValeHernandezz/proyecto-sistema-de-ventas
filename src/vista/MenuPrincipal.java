@@ -13,7 +13,7 @@ public class MenuPrincipal implements MostrarPanel {
 	private JPanel panelContent = new JPanel();
 
 	/**
-	 * Launch the application.
+	 * Nico rama
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
