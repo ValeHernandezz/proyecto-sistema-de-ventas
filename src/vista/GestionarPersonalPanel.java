@@ -43,7 +43,7 @@ public class GestionarPersonalPanel extends JPanel {
 	private JTable table = new JTable();
 	private JTextField textFieldBuscar;
 	JComboBox comboBoxFiltroBuscar = new JComboBox();
-
+	//Prueba 1
 	/**
 	 * Create the panel.
 	 */
