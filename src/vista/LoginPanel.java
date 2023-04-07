@@ -28,35 +28,35 @@ public class LoginPanel extends JPanel {
 
 		JPanel panelLogin = new JPanel();
 		panelLogin.setBackground(new Color(145, 242, 189));
-		panelLogin.setBounds(0, 0, 798, 550);
+		panelLogin.setBounds(0, 0, 1008, 550);
 		add(panelLogin);
 		panelLogin.setLayout(null);
 
 		JLabel labelIniciarSesion = new JLabel("Iniciar Sesión");
 		labelIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
 		labelIniciarSesion.setFont(new Font("Cambria", Font.BOLD, 40));
-		labelIniciarSesion.setBounds(263, 181, 271, 29);
+		labelIniciarSesion.setBounds(368, 156, 271, 29);
 		panelLogin.add(labelIniciarSesion);
 
 		JLabel labelMail = new JLabel("Mail");
 		labelMail.setFont(new Font("Cambria", Font.PLAIN, 15));
-		labelMail.setBounds(275, 242, 85, 13);
+		labelMail.setBounds(426, 217, 85, 13);
 		panelLogin.add(labelMail);
 
 		textFieldMail = new JTextField();
 		textFieldMail.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldMail.setColumns(10);
-		textFieldMail.setBounds(366, 239, 156, 19);
+		textFieldMail.setBounds(426, 236, 156, 19);
 		panelLogin.add(textFieldMail);
 		
 		passwordFieldClave = new JPasswordField();
 		passwordFieldClave.setFont(new Font("Cambria", Font.PLAIN, 13));
-		passwordFieldClave.setBounds(366, 280, 156, 19);
+		passwordFieldClave.setBounds(426, 288, 156, 19);
 		panelLogin.add(passwordFieldClave);
 
 		JLabel labelClave = new JLabel("Contraseña");
 		labelClave.setFont(new Font("Cambria", Font.PLAIN, 15));
-		labelClave.setBounds(277, 283, 85, 13);
+		labelClave.setBounds(426, 265, 85, 13);
 		panelLogin.add(labelClave);
 
 		JButton buttonIngresar = new JButton("Ingresar");
@@ -87,9 +87,12 @@ public class LoginPanel extends JPanel {
 					panel.mostrarPanelContent(panelBienvenido);
 
 					if (existePersona != null) {
-
+						
+						panel.mostrarMenu();
+						
 						if (existePersona.getIdRol() == 1) {
 
+							
 							MenuAdministrador menuAdministrador = new MenuAdministrador(panel);
 							menuAdministrador.setSize(200, 550);
 							menuAdministrador.setLocation(0, 0);
@@ -100,6 +103,8 @@ public class LoginPanel extends JPanel {
 
 						if (existePersona.getIdRol() == 2) {
 
+							JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
+									JOptionPane.INFORMATION_MESSAGE);
 							MenuOperador menuOperador = new MenuOperador(panel);
 							menuOperador.setSize(200, 550);
 							menuOperador.setLocation(0, 0);
@@ -110,6 +115,8 @@ public class LoginPanel extends JPanel {
 
 						if (existePersona.getIdRol() == 3) {
 
+							JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
+									JOptionPane.INFORMATION_MESSAGE);
 							MenuJefe menuJefe = new MenuJefe(panel);
 							menuJefe.setSize(200, 550);
 							menuJefe.setLocation(0, 0);
@@ -129,7 +136,7 @@ public class LoginPanel extends JPanel {
 
 			}
 		});
-		buttonIngresar.setBounds(356, 335, 85, 21);
+		buttonIngresar.setBounds(461, 336, 85, 21);
 		panelLogin.add(buttonIngresar);
 
 	}

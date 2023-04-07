@@ -56,15 +56,10 @@ public class MenuAdministrador extends JPanel {
 				
 				fabrica.setoPersonaLogueada(null);
                 LoginPanel loginPanel = new LoginPanel(panel);
-                loginPanel.setSize(798, 550);
+                loginPanel.setSize(1008, 550);
                 loginPanel.setLocation(0, 0);
                 panel.mostrarPanelContent(loginPanel);
-                
-                JPanel panelMenu = new JPanel();
-                panelMenu.setBounds(0, 0, 200, 550);
-                panelMenu.setLayout(null);
-                panel.mostrarPanelMenu(panelMenu);
-				
+                panel.ocultarMenu();	
 				
 			}
 		});
