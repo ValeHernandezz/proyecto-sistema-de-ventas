@@ -47,7 +47,7 @@ public class GestionarPersonalPanel extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * el nico se la come
+	 * el nico se la come a tu hermana
 	 */
 	public GestionarPersonalPanel() {
 		setLayout(null);
