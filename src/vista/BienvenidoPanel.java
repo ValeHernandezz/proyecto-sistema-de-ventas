@@ -14,7 +14,7 @@ public class BienvenidoPanel extends JPanel {
 	private ImagenLogo imagenLogo = new ImagenLogo();
 	private ImagenUtec imagenUtec = new ImagenUtec();
 	
-	//Comentario de prueba 
+	
 	
 	/**
 	 * Create the panel.
