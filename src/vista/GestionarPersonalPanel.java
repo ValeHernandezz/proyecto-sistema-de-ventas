@@ -475,9 +475,10 @@ public class GestionarPersonalPanel extends JPanel {
 
 				if (listaPersonas.size() != 0) {
 
+					limpiarCamposDeBusqueda();
+
 					if (!filtros.equals("Documento")) {
 
-						limpiarCamposDeBusqueda();
 						TableModelPersona tablaPersonas = new TableModelPersona(listaPersonas);
 						table.setModel(tablaPersonas);
 						System.out.println("Entro acá");

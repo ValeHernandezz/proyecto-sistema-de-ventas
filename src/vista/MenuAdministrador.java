@@ -9,6 +9,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import clases.Fabrica;
+import clases.Persona;
 
 import java.awt.Color;
 
@@ -19,7 +20,7 @@ public class MenuAdministrador extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MenuAdministrador(MostrarPanel panel) {
+	public MenuAdministrador(MostrarPanel panel, Persona oPersona) {
 		setLayout(null);
 		
 		JPanel panelMenuAdministrador = new JPanel();
@@ -140,6 +141,16 @@ public class MenuAdministrador extends JPanel {
 		buttonSueldos.setFont(new Font("Cambria", Font.PLAIN, 12));
 		buttonSueldos.setBounds(26, 345, 147, 21);
 		panelMenuAdministrador.add(buttonSueldos);
+		
+		JLabel lblBienvenido = new JLabel("Bienvenido:");
+		lblBienvenido.setFont(new Font("Cambria", Font.PLAIN, 11));
+		lblBienvenido.setBounds(10, 90, 74, 13);
+		panelMenuAdministrador.add(lblBienvenido);
+		
+		JLabel lblUsuario = new JLabel(oPersona.getNombreCompleto());
+		lblUsuario.setFont(new Font("Cambria", Font.BOLD, 11));
+		lblUsuario.setBounds(70, 90, 120, 13);
+		panelMenuAdministrador.add(lblUsuario);
 
 	}
 }

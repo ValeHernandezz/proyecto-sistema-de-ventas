@@ -32,34 +32,42 @@ public class LoginPanel extends JPanel {
 		add(panelLogin);
 		panelLogin.setLayout(null);
 
+		JPanel panelContenido = new JPanel();
+		panelContenido.setBackground(new Color(117, 236, 164));
+		panelContenido.setBounds(337, 0, 333, 550);
+		panelLogin.add(panelContenido);
+		panelContenido.setLayout(null);
+
 		JLabel labelIniciarSesion = new JLabel("Iniciar Sesión");
+		labelIniciarSesion.setBounds(31, 175, 271, 29);
+		panelContenido.add(labelIniciarSesion);
 		labelIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
 		labelIniciarSesion.setFont(new Font("Cambria", Font.BOLD, 40));
-		labelIniciarSesion.setBounds(368, 156, 271, 29);
-		panelLogin.add(labelIniciarSesion);
 
 		JLabel labelMail = new JLabel("Mail");
+		labelMail.setBounds(88, 236, 85, 13);
+		panelContenido.add(labelMail);
 		labelMail.setFont(new Font("Cambria", Font.PLAIN, 15));
-		labelMail.setBounds(426, 217, 85, 13);
-		panelLogin.add(labelMail);
 
 		textFieldMail = new JTextField();
+		textFieldMail.setBounds(88, 255, 156, 19);
+		panelContenido.add(textFieldMail);
 		textFieldMail.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldMail.setColumns(10);
-		textFieldMail.setBounds(426, 236, 156, 19);
-		panelLogin.add(textFieldMail);
-
-		passwordFieldClave = new JPasswordField();
-		passwordFieldClave.setFont(new Font("Cambria", Font.PLAIN, 13));
-		passwordFieldClave.setBounds(426, 288, 156, 19);
-		panelLogin.add(passwordFieldClave);
 
 		JLabel labelClave = new JLabel("Contraseña");
+		labelClave.setBounds(88, 284, 85, 13);
+		panelContenido.add(labelClave);
 		labelClave.setFont(new Font("Cambria", Font.PLAIN, 15));
-		labelClave.setBounds(426, 265, 85, 13);
-		panelLogin.add(labelClave);
+
+		passwordFieldClave = new JPasswordField();
+		passwordFieldClave.setBounds(88, 307, 156, 19);
+		panelContenido.add(passwordFieldClave);
+		passwordFieldClave.setFont(new Font("Cambria", Font.PLAIN, 13));
 
 		JButton buttonIngresar = new JButton("Ingresar");
+		buttonIngresar.setBounds(124, 355, 85, 21);
+		panelContenido.add(buttonIngresar);
 		buttonIngresar.setFont(new Font("Cambria", Font.PLAIN, 13));
 		buttonIngresar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -90,7 +98,7 @@ public class LoginPanel extends JPanel {
 
 					if (existePersona.getIdRol() == 1) {
 
-						MenuAdministrador menuAdministrador = new MenuAdministrador(panel);
+						MenuAdministrador menuAdministrador = new MenuAdministrador(panel, existePersona);
 						menuAdministrador.setSize(200, 550);
 						menuAdministrador.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuAdministrador);
@@ -100,9 +108,7 @@ public class LoginPanel extends JPanel {
 
 					if (existePersona.getIdRol() == 2) {
 
-						JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-								JOptionPane.INFORMATION_MESSAGE);
-						MenuOperador menuOperador = new MenuOperador(panel);
+						MenuOperador menuOperador = new MenuOperador(panel, existePersona);
 						menuOperador.setSize(200, 550);
 						menuOperador.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuOperador);
@@ -112,9 +118,7 @@ public class LoginPanel extends JPanel {
 
 					if (existePersona.getIdRol() == 3) {
 
-						JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-								JOptionPane.INFORMATION_MESSAGE);
-						MenuJefe menuJefe = new MenuJefe(panel);
+						MenuJefe menuJefe = new MenuJefe(panel, existePersona);
 						menuJefe.setSize(200, 550);
 						menuJefe.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuJefe);
@@ -128,8 +132,6 @@ public class LoginPanel extends JPanel {
 
 			}
 		});
-		buttonIngresar.setBounds(461, 336, 85, 21);
-		panelLogin.add(buttonIngresar);
 
 	}
 }

@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import clases.Fabrica;
+import clases.Persona;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -11,11 +14,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MenuJefe extends JPanel {
-
+	
+	private Fabrica fabrica = new Fabrica();
+	
 	/**
 	 * Create the panel.
 	 */
-	public MenuJefe(MostrarPanel panel) {
+	public MenuJefe(MostrarPanel panel, Persona oPersona) {
 		setLayout(null);
 		
 		JPanel panelMenuJefe = new JPanel();
@@ -75,20 +80,32 @@ public class MenuJefe extends JPanel {
 		buttonControlDeInventario.setBounds(26, 303, 147, 21);
 		panelMenuJefe.add(buttonControlDeInventario);
 		
-		JButton buttonAdios = new JButton("Adios");
-		buttonAdios.addMouseListener(new MouseAdapter() {
+		JButton buttonCerrarSesion = new JButton("Cerrar Sesión");
+		buttonCerrarSesion.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
-				AdiosPanel adiosPanel = new AdiosPanel();
-				adiosPanel.setSize(798, 550);
-				adiosPanel.setLocation(0, 0);
-				panel.mostrarPanelContent(adiosPanel);
+				fabrica.setoPersonaLogueada(null);
+                LoginPanel loginPanel = new LoginPanel(panel);
+                loginPanel.setSize(1008, 550);
+                loginPanel.setLocation(0, 0);
+                panel.mostrarPanelContent(loginPanel);
+                panel.ocultarMenu();	
 				
 			}
 		});
-		buttonAdios.setFont(new Font("Cambria", Font.PLAIN, 12));
-		buttonAdios.setBounds(26, 470, 147, 21);
-		panelMenuJefe.add(buttonAdios);
+		buttonCerrarSesion.setFont(new Font("Cambria", Font.PLAIN, 12));
+		buttonCerrarSesion.setBounds(26, 470, 147, 21);
+		panelMenuJefe.add(buttonCerrarSesion);
+		
+		JLabel lblBienvenido = new JLabel("Bienvenido:");
+		lblBienvenido.setFont(new Font("Cambria", Font.PLAIN, 11));
+		lblBienvenido.setBounds(10, 130, 74, 13);
+		panelMenuJefe.add(lblBienvenido);
+		
+		JLabel lblUsuario = new JLabel(oPersona.getNombreCompleto());
+		lblUsuario.setFont(new Font("Cambria", Font.BOLD, 11));
+		lblUsuario.setBounds(70, 130, 120, 13);
+		panelMenuJefe.add(lblUsuario);
 
 	}
 }
