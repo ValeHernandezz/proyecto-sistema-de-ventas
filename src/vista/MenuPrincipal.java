@@ -34,18 +34,13 @@ public class MenuPrincipal implements MostrarPanel {
 	}
 
 	public void ocultarMenu() {
-		panelContent.setBounds(10, 10, 1008, 550);
+		panelContent.setBounds(0, 0, 1028, 570);
 		panelContent.setBackground(new Color(145, 242, 189));
 		panelMenu.setVisible(false);
 	}
 
 	public void inciarLogin() {
 		ocultarMenu();
-
-		LoginPanel loginPanel = new LoginPanel(this);
-		loginPanel.setSize(1008, 550);
-		loginPanel.setLocation(0, 0);
-		mostrarPanelContent(loginPanel);
 
 	}
 
@@ -69,16 +64,21 @@ public class MenuPrincipal implements MostrarPanel {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
+
+		LoginPanel loginPanel = new LoginPanel(this);
+		loginPanel.setSize(1028, 570);
+		loginPanel.setLocation(0, 0);
+		mostrarPanelContent(loginPanel);
+		panelContent.setBackground(new Color(192, 192, 192));
+		panelContent.setBounds(0, 0, 1028, 570);
+		frame.getContentPane().add(panelContent);
+		panelContent.setLayout(null);
 		panelMenu.setBackground(new Color(117, 236, 164));
 		panelMenu.setBounds(10, 10, 200, 550);
 
 		frame.getContentPane().add(panelMenu);
 		frame.getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
-		panelContent.setBackground(new Color(192, 192, 192));
-		panelContent.setBounds(220, 10, 798, 550);
-		frame.getContentPane().add(panelContent);
-		panelContent.setLayout(null);
 
 	}
 
