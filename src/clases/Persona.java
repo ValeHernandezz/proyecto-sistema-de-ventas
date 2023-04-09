@@ -169,6 +169,10 @@ public class Persona {
 		this.rol = rol;
 	}
 	
+	public String getNombreCompleto() {
+		return nombre1 + " " + apellido1;
+	}
+	
 	public String toString() {
 		return "Persona [idPersona=" + idPersona + ", documento=" + documento + ", nombre1=" + nombre1 + ", nombre2="
 				+ nombre2 + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", fechaNacimiento="

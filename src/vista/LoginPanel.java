@@ -35,13 +35,13 @@ public class LoginPanel extends JPanel {
 
 		panelLogin = new JPanel();
 		panelLogin.setBackground(Color.decode("#d8d8d8"));
-		panelLogin.setBounds(0, 0, 1008, 550);
+		panelLogin.setBounds(0, 0, 1028, 570);
 		add(panelLogin);
 		panelLogin.setLayout(null);
 
 		panelDatos = new JPanel();
 		panelDatos.setBackground(Color.decode("#4bb4ca"));
-		panelDatos.setBounds(312, 0, 384, 550);
+		panelDatos.setBounds(322, 0, 384, 570);
 		panelLogin.add(panelDatos);
 		panelDatos.setLayout(null);
 
@@ -104,8 +104,8 @@ public class LoginPanel extends JPanel {
 					panel.mostrarMenu();
 
 					if (existePersona.getIdRol() == 1) {
-
-						MenuAdministrador menuAdministrador = new MenuAdministrador(panel);
+						
+						MenuAdministrador menuAdministrador = new MenuAdministrador(panel, existePersona);
 						menuAdministrador.setSize(200, 550);
 						menuAdministrador.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuAdministrador);
@@ -115,7 +115,7 @@ public class LoginPanel extends JPanel {
 
 					if (existePersona.getIdRol() == 2) {
 
-						MenuOperador menuOperador = new MenuOperador(panel);
+						MenuOperador menuOperador = new MenuOperador(panel, existePersona);
 						menuOperador.setSize(200, 550);
 						menuOperador.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuOperador);

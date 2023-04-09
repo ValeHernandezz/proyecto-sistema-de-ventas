@@ -13,15 +13,17 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import clases.Fabrica;
+import clases.Persona;
 
 public class MenuOperador extends JPanel {
 	
 	private Fabrica fabrica = new Fabrica();
+	private Persona oPersona;
 	
 	/**
 	 * Create the panel.
 	 */
-	public MenuOperador(MostrarPanel panel) {
+	public MenuOperador(MostrarPanel panel, Persona oPersona) {
 		setLayout(null);
 		
 		JPanel panelMenuOperador = new JPanel();
@@ -96,6 +98,12 @@ public class MenuOperador extends JPanel {
 		buttonCuentasCorrientes.setFont(new Font("Cambria", Font.PLAIN, 12));
 		buttonCuentasCorrientes.setBounds(26, 300, 147, 21);
 		panelMenuOperador.add(buttonCuentasCorrientes);
+		
+		JLabel labelNombreCompleto = new JLabel((String) null);
+		labelNombreCompleto.setHorizontalAlignment(SwingConstants.CENTER);
+		labelNombreCompleto.setFont(new Font("Cambria", Font.PLAIN, 13));
+		labelNombreCompleto.setBounds(10, 79, 180, 13);
+		panelMenuOperador.add(labelNombreCompleto);
 
 	}
 }

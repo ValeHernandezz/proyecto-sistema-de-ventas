@@ -9,17 +9,19 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import clases.Fabrica;
+import clases.Persona;
 
 import java.awt.Color;
 
 public class MenuAdministrador extends JPanel {
 	
 	private Fabrica fabrica = new Fabrica();
+	private Persona oPersona = new Persona();
 
 	/**
 	 * Create the panel.
 	 */
-	public MenuAdministrador(MostrarPanel panel) {
+	public MenuAdministrador(MostrarPanel panel, Persona oPersona) {
 		setLayout(null);
 		
 		JPanel panelMenuAdministrador = new JPanel();
@@ -139,6 +141,12 @@ public class MenuAdministrador extends JPanel {
 		buttonSueldos.setFont(new Font("Cambria", Font.PLAIN, 12));
 		buttonSueldos.setBounds(26, 350, 147, 21);
 		panelMenuAdministrador.add(buttonSueldos);
+		
+		JLabel labelNombreCompleto = new JLabel(oPersona.getNombreCompleto());
+		labelNombreCompleto.setFont(new Font("Cambria", Font.PLAIN, 13));
+		labelNombreCompleto.setHorizontalAlignment(SwingConstants.CENTER);
+		labelNombreCompleto.setBounds(10, 80, 180, 13);
+		panelMenuAdministrador.add(labelNombreCompleto);
 
 	}
 }
