@@ -28,10 +28,10 @@ public class MenuAdministrador extends JPanel {
 		add(panelMenuAdministrador);
 		panelMenuAdministrador.setLayout(null);
 		
-		JLabel labelMenuAdministrador = new JLabel("Menú Administrador");
+		JLabel labelMenuAdministrador = new JLabel("Administrador");
 		labelMenuAdministrador.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMenuAdministrador.setFont(new Font("Cambria", Font.BOLD, 17));
-		labelMenuAdministrador.setBounds(-23, 44, 247, 36);
+		labelMenuAdministrador.setFont(new Font("Cambria", Font.BOLD, 23));
+		labelMenuAdministrador.setBounds(-19, 25, 238, 44);
 		panelMenuAdministrador.add(labelMenuAdministrador);
 		
 		JButton buttonGestionarPersonal = new JButton("Gestionar Personal");
@@ -46,7 +46,7 @@ public class MenuAdministrador extends JPanel {
 			}
 		});
 		buttonGestionarPersonal.setFont(new Font("Cambria", Font.PLAIN, 12));
-		buttonGestionarPersonal.setBounds(25, 420, 147, 21);
+		buttonGestionarPersonal.setBounds(26, 425, 147, 21);
 		panelMenuAdministrador.add(buttonGestionarPersonal);
 		
 		JButton buttonCerrarSesión = new JButton("Cerrar Sesión");
@@ -56,14 +56,13 @@ public class MenuAdministrador extends JPanel {
 				
 				fabrica.setoPersonaLogueada(null);
                 LoginPanel loginPanel = new LoginPanel(panel);
-                loginPanel.setSize(1008, 550);
-                loginPanel.setLocation(0, 0);
+                loginPanel.setBounds(0, 0, 1008, 550);
                 panel.mostrarPanelContent(loginPanel);
-                panel.ocultarMenu();	
+                panel.ocultarMenu();
 				
 			}
 		});
-		buttonCerrarSesión.setBounds(25, 494, 147, 21);
+		buttonCerrarSesión.setBounds(26, 500, 147, 21);
 		panelMenuAdministrador.add(buttonCerrarSesión);
 		
 		JButton buttonControlDeInventario = new JButton("Control de Inventario");
@@ -78,7 +77,7 @@ public class MenuAdministrador extends JPanel {
 				
 			}
 		});
-		buttonControlDeInventario.setBounds(26, 149, 147, 21);
+		buttonControlDeInventario.setBounds(26, 150, 147, 21);
 		panelMenuAdministrador.add(buttonControlDeInventario);
 		
 		JButton buttonVentas = new JButton("Ventas");
@@ -93,7 +92,7 @@ public class MenuAdministrador extends JPanel {
 			}
 		});
 		buttonVentas.setFont(new Font("Cambria", Font.PLAIN, 12));
-		buttonVentas.setBounds(25, 244, 147, 21);
+		buttonVentas.setBounds(26, 250, 147, 21);
 		panelMenuAdministrador.add(buttonVentas);
 		
 		JButton buttonCompras = new JButton("Compras");
@@ -108,7 +107,7 @@ public class MenuAdministrador extends JPanel {
 			}
 		});
 		buttonCompras.setFont(new Font("Cambria", Font.PLAIN, 12));
-		buttonCompras.setBounds(25, 194, 147, 21);
+		buttonCompras.setBounds(26, 200, 147, 21);
 		panelMenuAdministrador.add(buttonCompras);
 		
 		JButton buttonCuentasCorrientes = new JButton("Cuentas Corrientes");
@@ -123,7 +122,7 @@ public class MenuAdministrador extends JPanel {
 			}
 		});
 		buttonCuentasCorrientes.setFont(new Font("Cambria", Font.PLAIN, 12));
-		buttonCuentasCorrientes.setBounds(26, 296, 147, 21);
+		buttonCuentasCorrientes.setBounds(26, 300, 147, 21);
 		panelMenuAdministrador.add(buttonCuentasCorrientes);
 		
 		JButton buttonSueldos = new JButton("Sueldos");
@@ -138,7 +137,7 @@ public class MenuAdministrador extends JPanel {
 			}
 		});
 		buttonSueldos.setFont(new Font("Cambria", Font.PLAIN, 12));
-		buttonSueldos.setBounds(26, 345, 147, 21);
+		buttonSueldos.setBounds(26, 350, 147, 21);
 		panelMenuAdministrador.add(buttonSueldos);
 
 	}

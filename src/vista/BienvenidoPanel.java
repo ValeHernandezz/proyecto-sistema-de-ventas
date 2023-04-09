@@ -12,9 +12,7 @@ import java.awt.Color;
 public class BienvenidoPanel extends JPanel {
 	
 	private ImagenLogo imagenLogo = new ImagenLogo();
-	private ImagenUtec imagenUtec = new ImagenUtec();
-	
-	
+	private ImagenUtec imagenUtec = new ImagenUtec();	
 	
 	/**
 	 * Create the panel.
@@ -29,32 +27,34 @@ public class BienvenidoPanel extends JPanel {
 		panelBienvenido.setLayout(null);
 		
 		JLabel labelTitulo1 = new JLabel("Bienvenido al");
-		labelTitulo1.setBounds(196, 74, 405, 60);
+		labelTitulo1.setBounds(196, 120, 405, 60);
 		labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo1.setFont(new Font("Cambria", Font.BOLD, 40));
 		panelBienvenido.add(labelTitulo1);
 		
-		JPanel panelImagenLogo = new JPanel();
-		panelImagenLogo.setBounds(320, 333, 160, 90);
-		panelBienvenido.add(panelImagenLogo);
-		panelImagenLogo.setLayout(null);
-		
-		imagenLogo.setBounds(0, 0, 160, 90);
-		panelImagenLogo.add(imagenLogo);
-		
-		JPanel panelImagenUtec = new JPanel();
-		panelImagenUtec.setBounds(320, 216, 160, 90);
-		panelBienvenido.add(panelImagenUtec);
-		panelImagenUtec.setLayout(null);
-		
-		imagenUtec.setBounds(0, 0, 160, 90);
-		panelImagenUtec.add(imagenUtec);
-		
 		JLabel labelTitulo2 = new JLabel("Sistema de Ventas");
 		labelTitulo2.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo2.setFont(new Font("Cambria", Font.BOLD, 40));
-		labelTitulo2.setBounds(196, 131, 405, 60);
+		labelTitulo2.setBounds(196, 177, 405, 60);
 		panelBienvenido.add(labelTitulo2);
+		
+		JPanel panelImagenLogo = new JPanel();
+		panelImagenLogo.setBounds(446, 299, 115, 67);
+		panelBienvenido.add(panelImagenLogo);
+		panelImagenLogo.setLayout(null);
+		
+		imagenLogo.setBounds(0, 0, 115, 67);
+		panelImagenLogo.add(imagenLogo);
+		
+		JPanel panelImagenUtec = new JPanel();
+		panelImagenUtec.setBounds(231, 285, 115, 81);
+		panelBienvenido.add(panelImagenUtec);
+		panelImagenUtec.setLayout(null);
+		
+		imagenUtec.setBounds(0, 0, 115, 81);
+		panelImagenUtec.add(imagenUtec);
+		
+		
 
 	}
 }

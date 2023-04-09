@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class ImagenUtec extends JPanel{
-	
+public class ImagenUtec extends JPanel {
+
 	public ImagenUtec() {
 		this.setSize(200, 300); // se selecciona el tamaño del panel
 	}
