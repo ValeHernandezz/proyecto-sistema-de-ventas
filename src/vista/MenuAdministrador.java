@@ -28,9 +28,9 @@ public class MenuAdministrador extends JPanel {
 		add(panelMenuAdministrador);
 		panelMenuAdministrador.setLayout(null);
 		
-		JLabel labelMenuAdministrador = new JLabel("Menú Administrador");
+		JLabel labelMenuAdministrador = new JLabel("Administrador");
 		labelMenuAdministrador.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMenuAdministrador.setFont(new Font("Cambria", Font.BOLD, 17));
+		labelMenuAdministrador.setFont(new Font("Cambria", Font.BOLD, 23));
 		labelMenuAdministrador.setBounds(-19, 25, 238, 44);
 		panelMenuAdministrador.add(labelMenuAdministrador);
 		
