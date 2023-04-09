@@ -100,8 +100,6 @@ public class LoginPanel extends JPanel {
 
 					if (existePersona.getIdRol() == 2) {
 
-						JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-								JOptionPane.INFORMATION_MESSAGE);
 						MenuOperador menuOperador = new MenuOperador(panel);
 						menuOperador.setSize(200, 550);
 						menuOperador.setLocation(0, 0);
@@ -112,8 +110,6 @@ public class LoginPanel extends JPanel {
 
 					if (existePersona.getIdRol() == 3) {
 
-						JOptionPane.showMessageDialog(null, "Existe la persona", "Éxito",
-								JOptionPane.INFORMATION_MESSAGE);
 						MenuJefe menuJefe = new MenuJefe(panel);
 						menuJefe.setSize(200, 550);
 						menuJefe.setLocation(0, 0);

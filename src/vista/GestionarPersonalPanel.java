@@ -3,14 +3,11 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
-
 import clases.Fabrica;
 import clases.Persona;
 import vista.helpers.Helper;
-
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -18,7 +15,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
@@ -58,13 +54,13 @@ public class GestionarPersonalPanel extends JPanel {
 		panel.setLayout(null);
 
 		JLabel labelGestionarPersonal = new JLabel("Gestionar Personal");
-		labelGestionarPersonal.setBounds(156, 10, 486, 56);
+		labelGestionarPersonal.setBounds(156, 16, 486, 36);
 		labelGestionarPersonal.setHorizontalAlignment(SwingConstants.CENTER);
 		labelGestionarPersonal.setFont(new Font("Cambria", Font.BOLD, 40));
 		panel.add(labelGestionarPersonal);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(36, 143, 725, 207);
+		panel_1.setBounds(36, 140, 725, 207);
 		panel_1.setBackground(new Color(122, 239, 175));
 		panel.add(panel_1);
 		panel_1.setLayout(null);
@@ -76,7 +72,7 @@ public class GestionarPersonalPanel extends JPanel {
 
 		JLabel labelNombres = new JLabel("Nombres");
 		labelNombres.setFont(new Font("Cambria", Font.PLAIN, 15));
-		labelNombres.setBounds(35, 53, 94, 13);
+		labelNombres.setBounds(35, 55, 94, 13);
 		panel_1.add(labelNombres);
 
 		JLabel labelApellidos = new JLabel("Apellidos");
@@ -96,12 +92,12 @@ public class GestionarPersonalPanel extends JPanel {
 
 		JLabel labelMail = new JLabel("Mail");
 		labelMail.setFont(new Font("Cambria", Font.PLAIN, 15));
-		labelMail.setBounds(470, 53, 94, 13);
+		labelMail.setBounds(470, 55, 94, 13);
 		panel_1.add(labelMail);
 
 		JLabel labelClave = new JLabel("Clave");
 		labelClave.setFont(new Font("Cambria", Font.PLAIN, 15));
-		labelClave.setBounds(470, 86, 94, 13);
+		labelClave.setBounds(470, 92, 94, 13);
 		panel_1.add(labelClave);
 
 		JButton buttonRegistrar = new JButton("Registrar");
@@ -168,7 +164,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		buttonRegistrar.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonRegistrar.setBounds(393, 149, 85, 21);
+		buttonRegistrar.setBounds(393, 164, 85, 21);
 		panel_1.add(buttonRegistrar);
 
 		JButton buttonModificar = new JButton("Modificar");
@@ -238,7 +234,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		buttonModificar.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonModificar.setBounds(488, 149, 97, 21);
+		buttonModificar.setBounds(488, 164, 97, 21);
 		panel_1.add(buttonModificar);
 
 		JButton buttonEliminar = new JButton("Eliminar");
@@ -275,7 +271,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		buttonEliminar.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonEliminar.setBounds(595, 149, 85, 21);
+		buttonEliminar.setBounds(595, 164, 85, 21);
 		panel_1.add(buttonEliminar);
 
 		textFieldDocumento = new JTextField();
@@ -287,7 +283,7 @@ public class GestionarPersonalPanel extends JPanel {
 		textFieldNombre1 = new JTextField();
 		textFieldNombre1.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldNombre1.setColumns(10);
-		textFieldNombre1.setBounds(185, 50, 96, 19);
+		textFieldNombre1.setBounds(185, 52, 96, 19);
 		panel_1.add(textFieldNombre1);
 
 		textFieldApellido1 = new JTextField();
@@ -299,7 +295,7 @@ public class GestionarPersonalPanel extends JPanel {
 		textFieldNombre2 = new JTextField();
 		textFieldNombre2.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldNombre2.setColumns(10);
-		textFieldNombre2.setBounds(307, 50, 96, 19);
+		textFieldNombre2.setBounds(307, 52, 96, 19);
 		panel_1.add(textFieldNombre2);
 
 		textFieldApellido2 = new JTextField();
@@ -359,7 +355,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		textFieldMes.setColumns(10);
-		textFieldMes.setBounds(227, 128, 32, 19);
+		textFieldMes.setBounds(235, 128, 32, 19);
 		textFieldMes.setForeground(Color.DARK_GRAY);
 		textFieldMes.setText("Mes");
 		panel_1.add(textFieldMes);
@@ -387,7 +383,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		textFieldAnio.setColumns(10);
-		textFieldAnio.setBounds(269, 128, 32, 19);
+		textFieldAnio.setBounds(287, 128, 32, 19);
 		textFieldAnio.setForeground(Color.DARK_GRAY);
 		textFieldAnio.setText("Año");
 		panel_1.add(textFieldAnio);
@@ -395,13 +391,13 @@ public class GestionarPersonalPanel extends JPanel {
 		textFieldMail = new JTextField();
 		textFieldMail.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldMail.setColumns(10);
-		textFieldMail.setBounds(529, 50, 151, 19);
+		textFieldMail.setBounds(529, 52, 151, 19);
 		panel_1.add(textFieldMail);
 
 		textFieldClave = new JTextField();
 		textFieldClave.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldClave.setColumns(10);
-		textFieldClave.setBounds(529, 83, 151, 19);
+		textFieldClave.setBounds(529, 89, 151, 19);
 		panel_1.add(textFieldClave);
 		comboBoxRol.setFont(new Font("Cambria", Font.PLAIN, 13));
 
@@ -416,16 +412,42 @@ public class GestionarPersonalPanel extends JPanel {
 
 				limpiarCampos();
 				textFieldDocumento.setText(null);
+				
+				if (textFieldDia.getText().isEmpty()) {
+					textFieldDia.setForeground(Color.DARK_GRAY);
+					textFieldDia.setText("Día");
+				}
+				
+				if (textFieldMes.getText().isEmpty()) {
+					textFieldMes.setForeground(Color.DARK_GRAY);
+					textFieldMes.setText("Mes");
+				}
+				
+				if (textFieldAnio.getText().isEmpty()) {
+					textFieldAnio.setForeground(Color.DARK_GRAY);
+					textFieldAnio.setText("Año");
+				}
 
 			}
 		});
 		buttonLimpiarCampos.setFont(new Font("Cambria", Font.PLAIN, 13));
 		buttonLimpiarCampos.setBounds(35, 164, 136, 21);
 		panel_1.add(buttonLimpiarCampos);
+		
+		JLabel labelSlash1 = new JLabel("/");
+		labelSlash1.setFont(new Font("Cambria", Font.PLAIN, 20));
+		labelSlash1.setBounds(220, 131, 21, 13);
+		panel_1.add(labelSlash1);
+		
+		JLabel labelSlash2 = new JLabel("/");
+		labelSlash2.setFont(new Font("Cambria", Font.PLAIN, 20));
+		labelSlash2.setBounds(271, 131, 21, 13);
+		panel_1.add(labelSlash2);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(36, 396, 725, 129);
+		scrollPane.setBounds(36, 400, 725, 129);
 		panel.add(scrollPane);
+		table.setFont(new Font("Cambria", Font.PLAIN, 13));
 
 		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null, null }, },
 				new String[] { "Documento", "Primer Nombre", "Segundo Nombre", "Primer Apellido", "Segundo Apellido",
@@ -440,13 +462,13 @@ public class GestionarPersonalPanel extends JPanel {
 		scrollPane.setViewportView(table);
 
 		JPanel panelBuscar = new JPanel();
-		panelBuscar.setBounds(36, 77, 725, 56);
+		panelBuscar.setBounds(36, 68, 725, 56);
 		panelBuscar.setBackground(new Color(122, 239, 175));
 		panel.add(panelBuscar);
 		panelBuscar.setLayout(null);
 
 		JButton buttonBuscar = new JButton("Buscar");
-		buttonBuscar.setBounds(460, 17, 85, 21);
+		buttonBuscar.setBounds(432, 17, 85, 21);
 		panelBuscar.add(buttonBuscar);
 		buttonBuscar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -486,11 +508,13 @@ public class GestionarPersonalPanel extends JPanel {
 					} else {
 
 						for (Persona p : listaPersonas) {
-
+							
+							limpiarCamposDeBusqueda();
 							String dia = String.valueOf(p.getFechaNacimiento().getDayOfMonth());
 							String mes = String.valueOf(p.getFechaNacimiento().getMonthValue());
 							String anio = String.valueOf(p.getFechaNacimiento().getYear());
 							textFieldDocumento.setText(p.getDocumento());
+							textFieldDocumento.setEditable(false);
 							textFieldNombre1.setText(p.getNombre1());
 							textFieldNombre2.setText(p.getNombre2());
 							textFieldApellido1.setText(p.getApellido1());
@@ -520,7 +544,7 @@ public class GestionarPersonalPanel extends JPanel {
 		comboBoxFiltroBuscar.setModel(new DefaultComboBoxModel(
 				new String[] { "Seleccione un filtro", "Nombres", "Apellidos", "Documento", "Rol" }));
 		comboBoxFiltroBuscar.setFont(new Font("Cambria", Font.PLAIN, 13));
-		comboBoxFiltroBuscar.setBounds(272, 17, 168, 21);
+		comboBoxFiltroBuscar.setBounds(273, 17, 134, 21);
 		panelBuscar.add(comboBoxFiltroBuscar);
 
 		textFieldBuscar = new JTextField();
@@ -531,7 +555,7 @@ public class GestionarPersonalPanel extends JPanel {
 
 		JLabel labelBuscar = new JLabel("Buscar");
 		labelBuscar.setFont(new Font("Cambria", Font.BOLD, 15));
-		labelBuscar.setBounds(20, 21, 67, 13);
+		labelBuscar.setBounds(35, 21, 67, 13);
 		panelBuscar.add(labelBuscar);
 
 		JButton buttonLimpiarBusqueda = new JButton("Limpiar Búsqueda");
@@ -544,11 +568,11 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		buttonLimpiarBusqueda.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonLimpiarBusqueda.setBounds(565, 18, 140, 21);
+		buttonLimpiarBusqueda.setBounds(540, 17, 140, 21);
 		panelBuscar.add(buttonLimpiarBusqueda);
 
 		JButton buttonMostrarLista = new JButton("Mostrar Lista");
-		buttonMostrarLista.setBounds(36, 365, 116, 21);
+		buttonMostrarLista.setBounds(36, 363, 116, 21);
 		panel.add(buttonMostrarLista);
 		buttonMostrarLista.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -574,7 +598,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		buttonLimpiarTabla.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonLimpiarTabla.setBounds(164, 365, 128, 21);
+		buttonLimpiarTabla.setBounds(164, 363, 128, 21);
 		panel.add(buttonLimpiarTabla);
 
 	}

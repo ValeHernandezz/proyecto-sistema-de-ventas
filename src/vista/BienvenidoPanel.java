@@ -12,9 +12,7 @@ import java.awt.Color;
 public class BienvenidoPanel extends JPanel {
 	
 	private ImagenLogo imagenLogo = new ImagenLogo();
-	private ImagenUtec imagenUtec = new ImagenUtec();
-	
-	
+	private ImagenUtec imagenUtec = new ImagenUtec();	
 	
 	/**
 	 * Create the panel.
