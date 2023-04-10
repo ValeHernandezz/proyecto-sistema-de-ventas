@@ -7,8 +7,12 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class VentasPanel extends JPanel {
+import vista.helpers.ImagenVentas;
 
+public class VentasPanel extends JPanel {
+	
+	private ImagenVentas imagenVentas = new ImagenVentas();
+	
 	/**
 	 * Create the panel.
 	 */
@@ -24,9 +28,17 @@ public class VentasPanel extends JPanel {
 		JLabel labelVentas = new JLabel("Ventas");
 		labelVentas.setHorizontalAlignment(SwingConstants.CENTER);
 		labelVentas.setFont(new Font("Cambria", Font.BOLD, 40));
-		labelVentas.setBounds(156, 219, 486, 111);
+		labelVentas.setBounds(156, 75, 486, 111);
 		panelVentas.add(labelVentas);
-
+		
+		JPanel panelImagenVentas = new JPanel();
+		panelImagenVentas.setBounds(224, 176, 350, 305);
+		panelVentas.add(panelImagenVentas);
+		panelImagenVentas.setLayout(null);
+		
+		imagenVentas.setBounds(0, 0, 350, 305);
+		panelImagenVentas.add(imagenVentas);
+		
 	}
 
 }

@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 import clases.Fabrica;
 import clases.Persona;
+import vista.helpers.ImagenTextura;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -26,6 +28,7 @@ public class LoginPanel extends JPanel {
 	private JButton buttonIngresar;
 	
 	private Fabrica oFabrica = new Fabrica();
+	private ImagenTextura imagenTextura = new ImagenTextura();
 
 	/**
 	 * Create the panel.
@@ -139,6 +142,9 @@ public class LoginPanel extends JPanel {
 
 			}
 		});
+		
+		imagenTextura.setBounds(0, 0, 1028, 570);
+		panelLogin.add(imagenTextura);
 
 	}
 }

@@ -5,10 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class MenuPrincipal implements MostrarPanel {
 
-	private JFrame frame;
+	private JFrame frmSistemaDeVentas;
 	private JPanel panelMenu = new JPanel();
 	private JPanel panelContent = new JPanel();
 
@@ -20,7 +21,7 @@ public class MenuPrincipal implements MostrarPanel {
 			public void run() {
 				try {
 					MenuPrincipal window = new MenuPrincipal();
-					window.frame.setVisible(true);
+					window.frmSistemaDeVentas.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,13 +58,15 @@ public class MenuPrincipal implements MostrarPanel {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.getContentPane().setBackground(new Color(172, 249, 214));
-		frame.setBounds(100, 100, 1042, 607);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
+		frmSistemaDeVentas = new JFrame();
+		frmSistemaDeVentas.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/vista/imagenes/LogoApp.png")));
+		frmSistemaDeVentas.setTitle("Sistema de Ventas");
+		frmSistemaDeVentas.setResizable(false);
+		frmSistemaDeVentas.getContentPane().setBackground(new Color(172, 249, 214));
+		frmSistemaDeVentas.setBounds(100, 100, 1042, 607);
+		frmSistemaDeVentas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSistemaDeVentas.getContentPane().setLayout(null);
+		frmSistemaDeVentas.setLocationRelativeTo(null);
 
 		LoginPanel loginPanel = new LoginPanel(this);
 		loginPanel.setSize(1028, 570);
@@ -71,13 +74,13 @@ public class MenuPrincipal implements MostrarPanel {
 		mostrarPanelContent(loginPanel);
 		panelContent.setBackground(new Color(192, 192, 192));
 		panelContent.setBounds(0, 0, 1028, 570);
-		frame.getContentPane().add(panelContent);
+		frmSistemaDeVentas.getContentPane().add(panelContent);
 		panelContent.setLayout(null);
 		panelMenu.setBackground(new Color(117, 236, 164));
 		panelMenu.setBounds(10, 10, 200, 550);
 
-		frame.getContentPane().add(panelMenu);
-		frame.getContentPane().add(panelMenu);
+		frmSistemaDeVentas.getContentPane().add(panelMenu);
+		frmSistemaDeVentas.getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
 
 	}

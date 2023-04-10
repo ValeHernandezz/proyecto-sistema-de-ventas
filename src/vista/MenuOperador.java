@@ -39,7 +39,7 @@ public class MenuOperador extends JPanel {
 				
 				fabrica.setoPersonaLogueada(null);
                 LoginPanel loginPanel = new LoginPanel(panel);
-                loginPanel.setBounds(0, 0, 1008, 550);
+                loginPanel.setBounds(0, 0, 1028, 570);
                 panel.mostrarPanelContent(loginPanel);
                 panel.ocultarMenu();
 				
