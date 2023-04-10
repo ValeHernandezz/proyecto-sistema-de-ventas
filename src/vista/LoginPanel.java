@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import clases.Fabrica;
 import clases.Persona;
 import vista.helpers.ImagenLogoApp;
+//import vista.helpers.ImagenLogoApp;
 import vista.helpers.ImagenTextura;
 
 import javax.swing.JTextField;
@@ -51,44 +52,43 @@ public class LoginPanel extends JPanel {
 		panelDatos.setLayout(null);
 
 		JPanel panelLogoTipo = new JPanel();
-		panelLogoTipo.setBounds(132, 19, 120, 120);
+		panelLogoTipo.setBounds(132, 82, 120, 120);
 		panelLogoTipo.setOpaque(false); // Establecer el panel como transparente
 		panelDatos.add(panelLogoTipo);
 		panelLogoTipo.setLayout(null);
 		imagenApp.setBounds(0, 0, 120, 120);
-		imagenApp.setOpaque(false); // Establecer la imagen como transparente
 
 		panelLogoTipo.add(imagenApp);
 
 		labelIniciarSesion = new JLabel("Iniciar Sesión");
-		labelIniciarSesion.setBounds(67, 149, 250, 47);
+		labelIniciarSesion.setBounds(67, 212, 250, 47);
 		panelDatos.add(labelIniciarSesion);
 		labelIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
 		labelIniciarSesion.setFont(new Font("Cambria", Font.BOLD, 40));
 
 		labelMail = new JLabel("Mail");
-		labelMail.setBounds(114, 225, 85, 13);
+		labelMail.setBounds(114, 288, 85, 13);
 		panelDatos.add(labelMail);
 		labelMail.setFont(new Font("Cambria", Font.PLAIN, 15));
 
 		textFieldMail = new JTextField();
-		textFieldMail.setBounds(114, 255, 156, 19);
+		textFieldMail.setBounds(114, 318, 156, 19);
 		panelDatos.add(textFieldMail);
 		textFieldMail.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldMail.setColumns(10);
 
 		labelClave = new JLabel("Contraseña");
-		labelClave.setBounds(114, 295, 74, 19);
+		labelClave.setBounds(114, 358, 74, 19);
 		panelDatos.add(labelClave);
 		labelClave.setFont(new Font("Cambria", Font.PLAIN, 15));
 
 		passwordFieldClave = new JPasswordField();
-		passwordFieldClave.setBounds(114, 325, 156, 19);
+		passwordFieldClave.setBounds(114, 388, 156, 19);
 		panelDatos.add(passwordFieldClave);
 		passwordFieldClave.setFont(new Font("Cambria", Font.PLAIN, 13));
 
 		buttonIngresar = new JButton("Ingresar");
-		buttonIngresar.setBounds(144, 380, 95, 25);
+		buttonIngresar.setBounds(144, 443, 95, 25);
 		panelDatos.add(buttonIngresar);
 		buttonIngresar.setFont(new Font("Cambria", Font.PLAIN, 15));
 		buttonIngresar.addMouseListener(new MouseAdapter() {
