@@ -49,14 +49,16 @@ public class LoginPanel extends JPanel {
 		panelDatos.setBounds(322, 0, 384, 570);
 		panelLogin.add(panelDatos);
 		panelDatos.setLayout(null);
-		
-				JPanel panelLogoTipo = new JPanel();
-				panelLogoTipo.setBounds(132, 19, 120, 120);
-				panelDatos.add(panelLogoTipo);
-				panelLogoTipo.setLayout(null);
-				imagenApp.setBounds(0, 0, 120, 120);
-				
-				panelLogoTipo.add(imagenApp);
+
+		JPanel panelLogoTipo = new JPanel();
+		panelLogoTipo.setBounds(132, 19, 120, 120);
+		panelLogoTipo.setOpaque(false); // Establecer el panel como transparente
+		panelDatos.add(panelLogoTipo);
+		panelLogoTipo.setLayout(null);
+		imagenApp.setBounds(0, 0, 120, 120);
+		imagenApp.setOpaque(false); // Establecer la imagen como transparente
+
+		panelLogoTipo.add(imagenApp);
 
 		labelIniciarSesion = new JLabel("Iniciar Sesión");
 		labelIniciarSesion.setBounds(67, 149, 250, 47);
