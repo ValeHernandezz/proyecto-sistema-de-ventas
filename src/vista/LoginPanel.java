@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 import clases.Fabrica;
 import clases.Persona;
+import vista.helpers.ImagenLogoApp;
 import vista.helpers.ImagenTextura;
 
 import javax.swing.JTextField;
@@ -17,7 +18,7 @@ import java.awt.Color;
 import javax.swing.JPasswordField;
 
 public class LoginPanel extends JPanel {
-	
+
 	private JPanel panelLogin;
 	private JPanel panelDatos;
 	private JLabel labelIniciarSesion;
@@ -26,9 +27,10 @@ public class LoginPanel extends JPanel {
 	private JLabel labelClave;
 	private JPasswordField passwordFieldClave;
 	private JButton buttonIngresar;
-	
+
 	private Fabrica oFabrica = new Fabrica();
 	private ImagenTextura imagenTextura = new ImagenTextura();
+	private ImagenLogoApp imagenApp = new ImagenLogoApp();
 
 	/**
 	 * Create the panel.
@@ -47,6 +49,14 @@ public class LoginPanel extends JPanel {
 		panelDatos.setBounds(322, 0, 384, 570);
 		panelLogin.add(panelDatos);
 		panelDatos.setLayout(null);
+		
+				JPanel panelLogoTipo = new JPanel();
+				panelLogoTipo.setBounds(132, 19, 120, 120);
+				panelDatos.add(panelLogoTipo);
+				panelLogoTipo.setLayout(null);
+				imagenApp.setBounds(0, 0, 120, 120);
+				
+				panelLogoTipo.add(imagenApp);
 
 		labelIniciarSesion = new JLabel("Iniciar Sesión");
 		labelIniciarSesion.setBounds(67, 149, 250, 47);
@@ -107,7 +117,7 @@ public class LoginPanel extends JPanel {
 					panel.mostrarMenu();
 
 					if (existePersona.getIdRol() == 1) {
-						
+
 						MenuAdministrador menuAdministrador = new MenuAdministrador(panel, existePersona);
 						menuAdministrador.setSize(200, 550);
 						menuAdministrador.setLocation(0, 0);
@@ -142,7 +152,7 @@ public class LoginPanel extends JPanel {
 
 			}
 		});
-		
+
 		imagenTextura.setBounds(0, 0, 1028, 570);
 		panelLogin.add(imagenTextura);
 

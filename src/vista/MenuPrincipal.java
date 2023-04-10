@@ -2,6 +2,9 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -59,7 +62,15 @@ public class MenuPrincipal implements MostrarPanel {
 	 */
 	private void initialize() {
 		frmSistemaDeVentas = new JFrame();
-		frmSistemaDeVentas.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/vista/imagenes/LogoApp.png")));
+		// Cargar la imagen del icono
+		ImageIcon icono = new ImageIcon(MenuPrincipal.class.getResource("/vista/imagenes/LogoApp.png"));
+
+		// Obtener la imagen del icono y ajustar su tamaño
+		Image imagenIcono = icono.getImage();
+		ImageIcon iconoEscalado = new ImageIcon(imagenIcono.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+
+		// Establecer el icono escalado en la ventana
+		frmSistemaDeVentas.setIconImage(iconoEscalado.getImage());
 		frmSistemaDeVentas.setTitle("Sistema de Ventas");
 		frmSistemaDeVentas.setResizable(false);
 		frmSistemaDeVentas.getContentPane().setBackground(new Color(172, 249, 214));
