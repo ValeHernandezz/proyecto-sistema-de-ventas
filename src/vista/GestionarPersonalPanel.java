@@ -435,10 +435,10 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		buttonRegistrar.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonRegistrar.setBounds(393, 164, 85, 21);
+		buttonRegistrar.setBounds(395, 164, 85, 21);
 		panelDatos.add(buttonRegistrar);
 
-		buttonModificar = new JButton("Modificar");
+		buttonModificar = new JButton("Editar");
 		buttonModificar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -483,29 +483,39 @@ public class GestionarPersonalPanel extends JPanel {
 
 				Persona oPersona = new Persona(documento, nombre1, nombre2, apellido1, apellido2, fechaNacimiento,
 						idRol, mail);
-
-				boolean respuesta = fabrica.editarPersona(oPersona);
-
-				if (respuesta) {
-
-					JOptionPane.showMessageDialog(null, "Se ha modificado la persona correctamente", "Éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-					limpiarCampos();
-					textFieldDocumento.setText(null);
-					return;
-
+				
+				int deseaEditarPersona = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea editar los datos de esta persona?", "Confirmación", JOptionPane.YES_NO_OPTION);
+				if(deseaEditarPersona == 0) {
+					
+					boolean respuesta = fabrica.editarPersona(oPersona);
+					
+					if (respuesta) {
+						
+						JOptionPane.showMessageDialog(null, "Se ha modificado la persona correctamente", "Éxito",
+								JOptionPane.INFORMATION_MESSAGE);
+						limpiarCampos();
+						textFieldDocumento.setText(null);
+						return;
+						
+					} else {
+						
+						JOptionPane.showMessageDialog(null, "No existe la persona que desea modificar", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+						
+					}
+					
 				} else {
-
-					JOptionPane.showMessageDialog(null, "No existe la persona que desea modificar", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					
 					return;
-
+					
 				}
+				
 
 			}
 		});
 		buttonModificar.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonModificar.setBounds(488, 164, 97, 21);
+		buttonModificar.setBounds(495, 164, 85, 21);
 		panelDatos.add(buttonModificar);
 
 		buttonEliminar = new JButton("Eliminar");
@@ -521,23 +531,33 @@ public class GestionarPersonalPanel extends JPanel {
 					return;
 
 				}
-
-				boolean respuesta = fabrica.eliminarPersona(documento);
-
-				if (respuesta) {
-
-					JOptionPane.showMessageDialog(null, "La persona se ha eliminado con éxito", "Éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-					textFieldDocumento.setText(null);
-					return;
-
+				
+				int deseaEliminarPersona = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar esta persona?", "Confirmación", JOptionPane.YES_NO_OPTION);
+				if(deseaEliminarPersona == 0) {
+					
+					boolean respuesta = fabrica.eliminarPersona(documento);
+					
+					if (respuesta) {
+						
+						JOptionPane.showMessageDialog(null, "La persona ha sido eliminada con éxito", "Éxito",
+								JOptionPane.INFORMATION_MESSAGE);
+						textFieldDocumento.setText(null);
+						return;
+						
+					} else {
+						
+						JOptionPane.showMessageDialog(null, "No ha sido posible eliminar la persona", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+						
+					}
+					
 				} else {
-
-					JOptionPane.showMessageDialog(null, "No se ha podido eliminar la persona", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					
 					return;
-
+					
 				}
+				
 
 			}
 		});
