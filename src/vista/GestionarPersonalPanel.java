@@ -14,6 +14,12 @@ import vista.helpers.Helper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
 
 public class GestionarPersonalPanel extends JPanel {
 	private JPanel panelPrincipal;
@@ -67,7 +73,7 @@ public class GestionarPersonalPanel extends JPanel {
 		setLayout(null);
 
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(new Color(145, 242, 189));
+		panelPrincipal.setBackground(Color.decode("#9ED7E2"));
 		panelPrincipal.setBounds(0, 0, 798, 550);
 		add(panelPrincipal);
 		panelPrincipal.setLayout(null);
@@ -79,8 +85,9 @@ public class GestionarPersonalPanel extends JPanel {
 		panelPrincipal.add(labelGestionarPersonal);
 
 		panelBuscar = new JPanel();
+		panelBuscar.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		panelBuscar.setBounds(36, 68, 725, 56);
-		panelBuscar.setBackground(new Color(122, 239, 175));
+		panelBuscar.setBackground(new Color(124, 200, 216));
 		panelPrincipal.add(panelBuscar);
 		panelBuscar.setLayout(null);
 		
@@ -190,8 +197,9 @@ public class GestionarPersonalPanel extends JPanel {
 		panelBuscar.add(buttonLimpiarBusqueda);
 
 		panelDatos = new JPanel();
+		panelDatos.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		panelDatos.setBounds(36, 140, 725, 207);
-		panelDatos.setBackground(new Color(122, 239, 175));
+		panelDatos.setBackground(new Color(124, 200, 216));
 		panelPrincipal.add(panelDatos);
 		panelDatos.setLayout(null);
 
@@ -339,7 +347,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		textFieldAnio.setColumns(10);
-		textFieldAnio.setBounds(287, 128, 32, 19);
+		textFieldAnio.setBounds(287, 128, 43, 19);
 		textFieldAnio.setForeground(Color.DARK_GRAY);
 		textFieldAnio.setText("Año");
 		panelDatos.add(textFieldAnio);
@@ -544,21 +552,6 @@ public class GestionarPersonalPanel extends JPanel {
 				limpiarCampos();
 				textFieldDocumento.setText(null);
 
-				if (textFieldDia.getText().isEmpty()) {
-					textFieldDia.setForeground(Color.DARK_GRAY);
-					textFieldDia.setText("Día");
-				}
-
-				if (textFieldMes.getText().isEmpty()) {
-					textFieldMes.setForeground(Color.DARK_GRAY);
-					textFieldMes.setText("Mes");
-				}
-
-				if (textFieldAnio.getText().isEmpty()) {
-					textFieldAnio.setForeground(Color.DARK_GRAY);
-					textFieldAnio.setText("Año");
-				}
-
 			}
 		});
 		buttonLimpiarCampos.setFont(new Font("Cambria", Font.PLAIN, 13));
@@ -637,6 +630,22 @@ public class GestionarPersonalPanel extends JPanel {
 		comboBoxRol.setSelectedIndex(0);
 		textFieldMail.setText(null);
 		passwordFieldClave.setText(null);
+		textFieldDocumento.setEditable(true);
+		
+		if (textFieldDia.getText().isEmpty()) {
+			textFieldDia.setForeground(Color.DARK_GRAY);
+			textFieldDia.setText("Día");
+		}
+
+		if (textFieldMes.getText().isEmpty()) {
+			textFieldMes.setForeground(Color.DARK_GRAY);
+			textFieldMes.setText("Mes");
+		}
+
+		if (textFieldAnio.getText().isEmpty()) {
+			textFieldAnio.setForeground(Color.DARK_GRAY);
+			textFieldAnio.setText("Año");
+		}
 
 	}
 

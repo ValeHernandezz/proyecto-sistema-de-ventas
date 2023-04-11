@@ -28,7 +28,7 @@ public class MenuOperador extends JPanel {
 		
 		JPanel panelMenuOperador = new JPanel();
 		panelMenuOperador.setBounds(0, 0, 200, 550);
-		panelMenuOperador.setBackground(new Color(117, 236, 164));
+		panelMenuOperador.setBackground(Color.decode("#4bb4ca"));
 		add(panelMenuOperador);
 		panelMenuOperador.setLayout(null);
 		
@@ -48,7 +48,7 @@ public class MenuOperador extends JPanel {
 		buttonCerrarSesion.setBounds(26, 500, 147, 21);
 		panelMenuOperador.add(buttonCerrarSesion);
 		
-		JLabel labelMenuOperador = new JLabel("Menú Operador");
+		JLabel labelMenuOperador = new JLabel("Operador de Sección");
 		labelMenuOperador.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMenuOperador.setFont(new Font("Cambria", Font.BOLD, 17));
 		labelMenuOperador.setBounds(-19, 25, 238, 44);
@@ -99,10 +99,10 @@ public class MenuOperador extends JPanel {
 		buttonCuentasCorrientes.setBounds(26, 300, 147, 21);
 		panelMenuOperador.add(buttonCuentasCorrientes);
 		
-		JLabel labelNombreCompleto = new JLabel((String) null);
+		JLabel labelNombreCompleto = new JLabel(oPersona.getNombreCompleto());
 		labelNombreCompleto.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNombreCompleto.setFont(new Font("Cambria", Font.PLAIN, 13));
-		labelNombreCompleto.setBounds(10, 79, 180, 13);
+		labelNombreCompleto.setBounds(10, 80, 180, 13);
 		panelMenuOperador.add(labelNombreCompleto);
 
 	}

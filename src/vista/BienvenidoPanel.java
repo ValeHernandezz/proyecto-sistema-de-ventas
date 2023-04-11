@@ -21,7 +21,7 @@ public class BienvenidoPanel extends JPanel {
 		setLayout(null);
 		
 		JPanel panelBienvenido = new JPanel();
-		panelBienvenido.setBackground(new Color(145, 242, 189));
+		panelBienvenido.setBackground(Color.decode("#9ED7E2"));
 		panelBienvenido.setBounds(0, 0, 798, 550);
 		add(panelBienvenido);
 		panelBienvenido.setLayout(null);

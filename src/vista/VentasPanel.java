@@ -21,7 +21,7 @@ public class VentasPanel extends JPanel {
 		
 		JPanel panelVentas = new JPanel();
 		panelVentas.setBounds(0, 0, 798, 550);
-		panelVentas.setBackground(new Color(145, 242, 189));
+		panelVentas.setBackground(Color.decode("#9ED7E2"));
 		add(panelVentas);
 		panelVentas.setLayout(null);
 		
@@ -38,6 +38,7 @@ public class VentasPanel extends JPanel {
 		
 		imagenVentas.setBounds(0, 0, 350, 305);
 		panelImagenVentas.add(imagenVentas);
+		imagenVentas.setLayout(null);
 		
 	}
 

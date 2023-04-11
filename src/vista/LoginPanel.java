@@ -140,7 +140,7 @@ public class LoginPanel extends JPanel {
 
 					if (existePersona.getIdRol() == 3) {
 
-						MenuJefe menuJefe = new MenuJefe(panel);
+						MenuJefe menuJefe = new MenuJefe(panel, existePersona);
 						menuJefe.setSize(200, 550);
 						menuJefe.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuJefe);
@@ -155,7 +155,7 @@ public class LoginPanel extends JPanel {
 			}
 		});
 
-		imagenTextura.setBounds(0, 0, 1028, 570);
+		imagenTextura.setBounds(0, 0, 1200, 1200);
 		panelLogin.add(imagenTextura);
 
 	}

@@ -25,7 +25,7 @@ public class MenuAdministrador extends JPanel {
 		setLayout(null);
 		
 		JPanel panelMenuAdministrador = new JPanel();
-		panelMenuAdministrador.setBackground(new Color(117, 236, 164));
+		panelMenuAdministrador.setBackground(Color.decode("#4bb4ca"));
 		panelMenuAdministrador.setBounds(0, 0, 200, 550);
 		add(panelMenuAdministrador);
 		panelMenuAdministrador.setLayout(null);

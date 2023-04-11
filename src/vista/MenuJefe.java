@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import clases.Fabrica;
+import clases.Persona;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -19,16 +20,16 @@ public class MenuJefe extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MenuJefe(MostrarPanel panel) {
+	public MenuJefe(MostrarPanel panel, Persona oPersona) {
 		setLayout(null);
 		
 		JPanel panelMenuJefe = new JPanel();
 		panelMenuJefe.setBounds(0, 0, 200, 550);
-		panelMenuJefe.setBackground(new Color(117, 236, 164));
+		panelMenuJefe.setBackground(Color.decode("#4bb4ca"));
 		add(panelMenuJefe);
 		panelMenuJefe.setLayout(null);
 		
-		JLabel labelMenuJefe = new JLabel("Menú Jefe");
+		JLabel labelMenuJefe = new JLabel("Jefe de Sección");
 		labelMenuJefe.setFont(new Font("Cambria", Font.BOLD, 17));
 		labelMenuJefe.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMenuJefe.setBounds(-17, 25, 234, 44);
@@ -94,6 +95,12 @@ public class MenuJefe extends JPanel {
 		buttonCerrarSesion.setFont(new Font("Cambria", Font.PLAIN, 12));
 		buttonCerrarSesion.setBounds(26, 500, 147, 21);
 		panelMenuJefe.add(buttonCerrarSesion);
+		
+		JLabel labelNombreCompleto = new JLabel(oPersona.getNombreCompleto());
+		labelNombreCompleto.setHorizontalAlignment(SwingConstants.CENTER);
+		labelNombreCompleto.setFont(new Font("Cambria", Font.PLAIN, 13));
+		labelNombreCompleto.setBounds(10, 80, 180, 13);
+		panelMenuJefe.add(labelNombreCompleto);
 
 	}
 }

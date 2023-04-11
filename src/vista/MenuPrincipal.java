@@ -7,6 +7,9 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import vista.helpers.ImagenTextura;
+
 import java.awt.Color;
 
 public class MenuPrincipal implements MostrarPanel {
@@ -14,6 +17,7 @@ public class MenuPrincipal implements MostrarPanel {
 	private JFrame frmSistemaDeVentas;
 	private JPanel panelMenu = new JPanel();
 	private JPanel panelContent = new JPanel();
+	private ImagenTextura imagenTextura = new ImagenTextura();
 
 	/**
 	 * Launch the application.
@@ -70,6 +74,7 @@ public class MenuPrincipal implements MostrarPanel {
 
 		// Establecer el icono escalado en la ventana
 		frmSistemaDeVentas.setIconImage(iconoEscalado.getImage());
+		
 		frmSistemaDeVentas.setTitle("Sistema de Ventas");
 		frmSistemaDeVentas.setResizable(false);
 		frmSistemaDeVentas.getContentPane().setBackground(new Color(172, 249, 214));
@@ -77,6 +82,7 @@ public class MenuPrincipal implements MostrarPanel {
 		frmSistemaDeVentas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSistemaDeVentas.getContentPane().setLayout(null);
 		frmSistemaDeVentas.setLocationRelativeTo(null);
+		
 
 		LoginPanel loginPanel = new LoginPanel(this);
 		loginPanel.setSize(1028, 570);
@@ -92,6 +98,9 @@ public class MenuPrincipal implements MostrarPanel {
 		frmSistemaDeVentas.getContentPane().add(panelMenu);
 		frmSistemaDeVentas.getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
+		
+		imagenTextura.setBounds(0, 0, 1200, 1200);
+		frmSistemaDeVentas.add(imagenTextura);
 
 	}
 
@@ -109,5 +118,7 @@ public class MenuPrincipal implements MostrarPanel {
 		panelContent.repaint();
 
 	}
+	
+	
 
 }
