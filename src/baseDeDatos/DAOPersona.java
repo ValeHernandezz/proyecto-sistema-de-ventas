@@ -11,33 +11,35 @@ import java.util.HashMap;
 import clases.Persona;
 
 public class DAOPersona {
+	
+	private static final Connection conexion = DataBaseManager.getConnection();
+	
+	private static final String SELECT_PERSONA = "SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONAS p JOIN ROLES r ON p.ID_ROL = r.ID_ROL ";
+	
+	private static final String LOGIN_PERSONA = SELECT_PERSONA + "WHERE MAIL = ? AND CLAVE = ?";
 
-	private static final String LOGIN_PERSONA = "SELECT * FROM PERSONA WHERE MAIL = ? AND CLAVE = ?";
+	private static final String ALL_PERSONAS = "SELECT * FROM PERSONAS ORDER BY 1";
 
-	private static final String ALL_PERSONAS = "SELECT * FROM PERSONA ORDER BY 1";
+	private static final String INSERTAR_PERSONA = "INSERT INTO PERSONAS (ID_PERSONA, DOCUMENTO, NOMBRE1, NOMBRE2, APELLIDO1, APELLIDO2, FECHA_NAC, CLAVE, ID_ROL, MAIL) VALUES (SEQ_ID_PERS.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	private static final String INSERTAR_PERSONA = "INSERT INTO PERSONA (ID_PERSONA, DOCUMENTO, NOMBRE1, NOMBRE2, APELLIDO1, APELLIDO2, FECHA_NAC, CLAVE, ID_ROL, MAIL) VALUES (SEQ_ID_PERS.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String EDITAR_PERSONA = "UPDATE PERSONAS SET NOMBRE1 = ?, NOMBRE2 = ?, APELLIDO1 = ?, APELLIDO2 = ?, FECHA_NAC = ?, ID_ROL = ?, MAIL = ? WHERE DOCUMENTO = ?";
 
-	private static final String EDITAR_PERSONA = "UPDATE PERSONA SET NOMBRE1 = ?, NOMBRE2 = ?, APELLIDO1 = ?, APELLIDO2 = ?, FECHA_NAC = ?, ID_ROL = ?, MAIL = ? WHERE DOCUMENTO = ?";
+	private static final String ELIMINAR_PERSONA = "DELETE FROM PERSONAS WHERE DOCUMENTO = ?";
 
-	private static final String ELIMINAR_PERSONA = "DELETE FROM PERSONA WHERE DOCUMENTO = ?";
-
-	private static final String LISTAR_PERSONAS = "SELECT p.ID_PERSONA, p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL ORDER BY ID_PERSONA";
-
-	private static final String BUSCAR_PERSONA = "SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE DOCUMENTO = ? ORDER BY ID_PERSONA";
+	private static final String LISTAR_PERSONAS = SELECT_PERSONA + "ORDER BY ID_PERSONA";
 
 	private static HashMap<String, String> consultasPersonalizadas;
 
 	public DAOPersona() {
 		consultasPersonalizadas = new HashMap<String, String>();
 		consultasPersonalizadas.put("Nombres",
-				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE NOMBRE1 LIKE ? OR NOMBRE2 LIKE ? ORDER BY ID_PERSONA");
+				SELECT_PERSONA + "WHERE UPPER (NOMBRE1) LIKE UPPER (?) OR UPPER (NOMBRE2) LIKE UPPER (?) ORDER BY ID_PERSONA");
 		consultasPersonalizadas.put("Apellidos",
-				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE APELLIDO1 LIKE ? OR APELLIDO2 LIKE ? ORDER BY ID_PERSONA");
+				SELECT_PERSONA + "WHERE UPPER (APELLIDO1) LIKE UPPER (?) OR UPPER (APELLIDO2) LIKE UPPER (?) ORDER BY ID_PERSONA");
 		consultasPersonalizadas.put("Documento",
-				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE DOCUMENTO = ? ORDER BY ID_PERSONA");
+				SELECT_PERSONA + "WHERE DOCUMENTO = ? ORDER BY ID_PERSONA");
 		consultasPersonalizadas.put("Rol",
-				"SELECT p.DOCUMENTO, p.NOMBRE1, p.NOMBRE2, p.APELLIDO1, p.APELLIDO2, p.FECHA_NAC, p.MAIL, r.NOMBRE as ROL FROM PERSONA p JOIN ROL r ON p.ID_ROL = r.ID_ROL WHERE r.NOMBRE LIKE ? ORDER BY ID_PERSONA");
+				SELECT_PERSONA + "WHERE UPPER (r.NOMBRE) LIKE UPPER (?) ORDER BY ID_PERSONA");
 	}
 
 	// _____________________________________________________________________________________________________________________
@@ -48,7 +50,7 @@ public class DAOPersona {
 
 		try {
 
-			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(LOGIN_PERSONA);
+			PreparedStatement sentencia = conexion.prepareStatement(LOGIN_PERSONA);
 
 			sentencia.setString(1, mail);
 			sentencia.setString(2, clave);
@@ -56,25 +58,11 @@ public class DAOPersona {
 			ResultSet resultado = sentencia.executeQuery();
 
 			if (resultado.next()) {
-
-				int idPersonaResultado = resultado.getInt("ID_PERSONA");
-				String documentoResultado = resultado.getString("DOCUMENTO");
-				String primerNombreResultado = resultado.getString("NOMBRE1");
-				String segundoNombreResultado = resultado.getString("NOMBRE2");
-				segundoNombreResultado = segundoNombreResultado != null ? segundoNombreResultado : "-";
-				String primerApellidoResultado = resultado.getString("APELLIDO1");
-				String segundoApellidoResultado = resultado.getString("APELLIDO2");
-				segundoApellidoResultado = segundoApellidoResultado != null ? segundoApellidoResultado : "-";
-				Date fechaAuxiliar = new Date(resultado.getDate("FECHA_NAC").getTime());
-				LocalDate fechaNacimientoResultado = fechaAuxiliar.toLocalDate();
-				int rolResultado = resultado.getInt("ID_ROL");
-				String mailResultado = resultado.getString("MAIL");
-
-				oPersonaExiste = new Persona(idPersonaResultado, documentoResultado, primerNombreResultado,
-						segundoNombreResultado, primerApellidoResultado, segundoApellidoResultado,
-						fechaNacimientoResultado, rolResultado, mailResultado);
+				
+				oPersonaExiste = getPersonaFromResultSet(resultado);
 
 			}
+			
 			return oPersonaExiste;
 
 		} catch (SQLException e) {
@@ -92,7 +80,7 @@ public class DAOPersona {
 
 		try {
 
-			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(ALL_PERSONAS);
+			PreparedStatement sentencia = conexion.prepareStatement(ALL_PERSONAS);
 
 			ResultSet resultado = sentencia.executeQuery();
 
@@ -121,7 +109,7 @@ public class DAOPersona {
 
 		try {
 
-			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(INSERTAR_PERSONA);
+			PreparedStatement sentencia = conexion.prepareStatement(INSERTAR_PERSONA);
 
 			sentencia.setString(1, oPersona.getDocumento());
 			sentencia.setString(2, oPersona.getNombre1());
@@ -151,14 +139,13 @@ public class DAOPersona {
 
 		try {
 
-			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(EDITAR_PERSONA);
+			PreparedStatement sentencia = conexion.prepareStatement(EDITAR_PERSONA);
 
 			sentencia.setString(1, oPersona.getNombre1());
 			sentencia.setString(2, oPersona.getNombre2());
 			sentencia.setString(3, oPersona.getApellido1());
 			sentencia.setString(4, oPersona.getApellido2());
 			sentencia.setDate(5, Date.valueOf(oPersona.getFechaNacimiento()));
-//			sentencia.setString(6, oPersona.getClave());
 			sentencia.setInt(6, oPersona.getIdRol());
 			sentencia.setString(7, oPersona.getMail());
 			sentencia.setString(8, oPersona.getDocumento());
@@ -182,7 +169,7 @@ public class DAOPersona {
 
 		try {
 
-			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(ELIMINAR_PERSONA);
+			PreparedStatement sentencia = conexion.prepareStatement(ELIMINAR_PERSONA);
 
 			sentencia.setString(1, documento);
 
@@ -207,55 +194,7 @@ public class DAOPersona {
 
 		try {
 
-			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(LISTAR_PERSONAS);
-
-			ResultSet resultado = sentencia.executeQuery();
-
-			while (resultado.next()) {
-
-				String documentoResultado = resultado.getString("DOCUMENTO");
-				String nombre1Resultado = resultado.getString("NOMBRE1");
-				String nombre2Resultado = resultado.getString("NOMBRE2");
-				String apellido1Resultado = resultado.getString("APELLIDO1");
-				String apellido2Resultado = resultado.getString("APELLIDO2");
-				Date fechaAuxiliar = new Date(resultado.getDate("FECHA_NAC").getTime());
-				LocalDate fechaNacimientoResultado = fechaAuxiliar.toLocalDate();
-				String rolResultado = resultado.getString("ROL");
-				String mailResultado = resultado.getString("MAIL");
-
-				nombre2Resultado = nombre2Resultado != null ? nombre2Resultado : "-"; // Si el segundo nombre está
-																						// vacío, se
-																						// ingresa un guión en remplazo.
-
-				Persona oPersona = new Persona(documentoResultado, nombre1Resultado, nombre2Resultado,
-						apellido1Resultado, apellido2Resultado, fechaNacimientoResultado, rolResultado, mailResultado);
-
-				listaPersonas.add(oPersona);
-
-			}
-
-			return listaPersonas;
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			return null;
-
-		}
-
-	}
-
-	// __________________________________________________________________________________________________________________________________________________
-	// MÉTODO PARA BUSCAR UNA PERSONA
-	public static ArrayList<Persona> buscarPersona(String documento) {
-
-		try {
-
-			ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
-
-			PreparedStatement sentencia = DataBaseManager.getConnection().prepareStatement(BUSCAR_PERSONA);
-
-			sentencia.setString(1, documento);
+			PreparedStatement sentencia = conexion.prepareStatement(LISTAR_PERSONAS);
 
 			ResultSet resultado = sentencia.executeQuery();
 
@@ -276,11 +215,12 @@ public class DAOPersona {
 		}
 
 	}
-
+	
+	// __________________________________________________________________________________________________________________________________________________
+	// MÉTODO PARA BUSCAR UNA PERSONA
 	public ArrayList<Persona> buscarPersona(String datos, String filtro) {
+		
 		ArrayList<Persona> listaDePersonas = new ArrayList<Persona>();
-
-		Connection conexion = DataBaseManager.getConnection();
 
 		if (filtro.equals("Nombres")) {
 
@@ -294,9 +234,8 @@ public class DAOPersona {
 				ResultSet resultado = sentencia.executeQuery();
 
 				while (resultado.next()) {
-
 					Persona oPersona = getPersonaFromResultSet(resultado);
-					listaDePersonas.add(oPersona);
+					listaDePersonas.add(oPersona);					
 				}
 
 			} catch (SQLException e) {
@@ -391,8 +330,7 @@ public class DAOPersona {
 		String rolResultado = resultado.getString("ROL");
 		String mailResultado = resultado.getString("MAIL");
 
-		nombre2Resultado = nombre2Resultado != null ? nombre2Resultado : "-"; // Si el segundo nombre está vacío, se
-																				// ingresa un guión en remplazo.
+		nombre2Resultado = nombre2Resultado != null ? nombre2Resultado : "-"; // Si el segundo nombre está vacío, se ingresa un guión en remplazo.
 
 		Persona oPersona = new Persona(documentoResultado, nombre1Resultado, nombre2Resultado, apellido1Resultado,
 				apellido2Resultado, fechaNacimientoResultado, rolResultado, mailResultado);

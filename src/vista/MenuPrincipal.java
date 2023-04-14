@@ -15,6 +15,7 @@ import java.awt.Color;
 public class MenuPrincipal implements MostrarPanel {
 
 	private JFrame frmSistemaDeVentas;
+	private LoginPanel loginPanel;
 	private JPanel panelMenu = new JPanel();
 	private JPanel panelContent = new JPanel();
 	private ImagenTextura imagenTextura = new ImagenTextura();
@@ -65,13 +66,12 @@ public class MenuPrincipal implements MostrarPanel {
 	 */
 	private void initialize() {
 		frmSistemaDeVentas = new JFrame();
+		
 		// Cargar la imagen del icono
 		ImageIcon icono = new ImageIcon(MenuPrincipal.class.getResource("/vista/imagenes/LogoApp.png"));
-
 		// Obtener la imagen del icono y ajustar su tamaño
 		Image imagenIcono = icono.getImage();
 		ImageIcon iconoEscalado = new ImageIcon(imagenIcono.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-
 		// Establecer el icono escalado en la ventana
 		frmSistemaDeVentas.setIconImage(iconoEscalado.getImage());
 		
@@ -84,7 +84,7 @@ public class MenuPrincipal implements MostrarPanel {
 		frmSistemaDeVentas.setLocationRelativeTo(null);
 		
 
-		LoginPanel loginPanel = new LoginPanel(this);
+		loginPanel = new LoginPanel(this);
 		loginPanel.setSize(1028, 570);
 		loginPanel.setLocation(0, 0);
 		mostrarPanelContent(loginPanel);
@@ -117,8 +117,6 @@ public class MenuPrincipal implements MostrarPanel {
 		panelContent.revalidate();
 		panelContent.repaint();
 
-	}
-	
-	
+	}	
 
 }

@@ -53,11 +53,11 @@ public class TableModelPersona implements TableModel {
 		case 5:
 			nombreColumna = "Fecha de Nacimiento";
 			break;
-			
+
 		case 6:
 			nombreColumna = "Rol";
 			break;
-			
+
 		case 7:
 			nombreColumna = "Mail";
 			break;
@@ -65,6 +65,7 @@ public class TableModelPersona implements TableModel {
 		}
 
 		return nombreColumna;
+		
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {
@@ -76,66 +77,62 @@ public class TableModelPersona implements TableModel {
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		
+
 		Persona oPersona = listaPersonas.get(rowIndex);
-		
+
 		String valor = null;
-		
-		switch(columnIndex) {
-		
+
+		switch (columnIndex) {
+
 		case 0:
 			valor = oPersona.getDocumento();
 			break;
-		
+
 		case 1:
 			valor = oPersona.getNombre1();
 			break;
-		
+
 		case 2:
 			valor = oPersona.getNombre2();
 			break;
-			
+
 		case 3:
 			valor = oPersona.getApellido1();
 			break;
-			
+
 		case 4:
 			valor = oPersona.getApellido2();
 			break;
-			
+
 		case 5:
 			LocalDate fecha = oPersona.getFechaNacimiento();
-			DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
+			DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			String fechaFormateada = fecha.format(formateador);
 			valor = fechaFormateada;
 			break;
-			
+
 		case 6:
 			valor = oPersona.getRol();
 			break;
-			
+
 		case 7:
 			valor = oPersona.getMail();
 			break;
-			
+
 		}
-		
+
 		return valor;
 	}
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		
-		
-
+		// TODO Auto-generated method stub
 	}
 
-	@Override
 	public void addTableModelListener(TableModelListener l) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void removeTableModelListener(TableModelListener l) {
 		// TODO Auto-generated method stub
 

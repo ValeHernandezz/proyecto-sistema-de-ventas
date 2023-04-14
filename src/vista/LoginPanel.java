@@ -10,7 +10,6 @@ import javax.swing.SwingConstants;
 import clases.Fabrica;
 import clases.Persona;
 import vista.helpers.ImagenLogoApp;
-//import vista.helpers.ImagenLogoApp;
 import vista.helpers.ImagenTextura;
 
 import javax.swing.JTextField;
@@ -21,7 +20,9 @@ import javax.swing.JPasswordField;
 public class LoginPanel extends JPanel {
 
 	private JPanel panelLogin;
+	
 	private JPanel panelDatos;
+	private JPanel panelLogoTipo;
 	private JLabel labelIniciarSesion;
 	private JLabel labelMail;
 	private JTextField textFieldMail;
@@ -29,9 +30,13 @@ public class LoginPanel extends JPanel {
 	private JPasswordField passwordFieldClave;
 	private JButton buttonIngresar;
 
+	private ImagenTextura imagenTextura;
+	private ImagenLogoApp imagenApp;
 	private Fabrica oFabrica = new Fabrica();
-	private ImagenTextura imagenTextura = new ImagenTextura();
-	private ImagenLogoApp imagenApp = new ImagenLogoApp();
+	private BienvenidoPanel panelBienvenido;
+	private MenuAdministrador menuAdministrador;
+	private MenuOperador menuOperador;
+	private MenuJefe menuJefe;
 
 	/**
 	 * Create the panel.
@@ -51,13 +56,14 @@ public class LoginPanel extends JPanel {
 		panelLogin.add(panelDatos);
 		panelDatos.setLayout(null);
 
-		JPanel panelLogoTipo = new JPanel();
+		panelLogoTipo = new JPanel();
 		panelLogoTipo.setBounds(132, 82, 120, 120);
 		panelLogoTipo.setOpaque(false); // Establecer el panel como transparente
 		panelDatos.add(panelLogoTipo);
 		panelLogoTipo.setLayout(null);
+		
+		imagenApp = new ImagenLogoApp();
 		imagenApp.setBounds(0, 0, 120, 120);
-
 		panelLogoTipo.add(imagenApp);
 
 		labelIniciarSesion = new JLabel("Iniciar Sesión");
@@ -105,11 +111,11 @@ public class LoginPanel extends JPanel {
 				Persona existePersona = oFabrica.login(mail, clave);
 
 				if (existePersona == null) {
-					JOptionPane.showMessageDialog(null, "No existe la persona", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "El correo electrónico o la contraseña ingresados son incorrectos. \nPor favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 
-				BienvenidoPanel panelBienvenido = new BienvenidoPanel();
+				panelBienvenido = new BienvenidoPanel();
 				panelBienvenido.setSize(798, 550);
 				panelBienvenido.setLocation(0, 0);
 				panel.mostrarPanelContent(panelBienvenido);
@@ -118,9 +124,9 @@ public class LoginPanel extends JPanel {
 
 					panel.mostrarMenu();
 
-					if (existePersona.getIdRol() == 1) {
+					if (existePersona.getRol().equals("Administrador del Sistema")) {
 
-						MenuAdministrador menuAdministrador = new MenuAdministrador(panel, existePersona);
+						menuAdministrador = new MenuAdministrador(panel, existePersona);
 						menuAdministrador.setSize(200, 550);
 						menuAdministrador.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuAdministrador);
@@ -128,9 +134,9 @@ public class LoginPanel extends JPanel {
 
 					}
 
-					if (existePersona.getIdRol() == 2) {
+					if (existePersona.getRol().equals("Operador de Sección")) {
 
-						MenuOperador menuOperador = new MenuOperador(panel, existePersona);
+						menuOperador = new MenuOperador(panel, existePersona);
 						menuOperador.setSize(200, 550);
 						menuOperador.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuOperador);
@@ -138,9 +144,9 @@ public class LoginPanel extends JPanel {
 
 					}
 
-					if (existePersona.getIdRol() == 3) {
+					if (existePersona.getRol().equals("Jefe de Sección")) {
 
-						MenuJefe menuJefe = new MenuJefe(panel, existePersona);
+						menuJefe = new MenuJefe(panel, existePersona);
 						menuJefe.setSize(200, 550);
 						menuJefe.setLocation(0, 0);
 						panel.mostrarPanelMenu(menuJefe);
@@ -154,7 +160,8 @@ public class LoginPanel extends JPanel {
 
 			}
 		});
-
+		
+		imagenTextura = new ImagenTextura();
 		imagenTextura.setBounds(0, 0, 1200, 1200);
 		panelLogin.add(imagenTextura);
 

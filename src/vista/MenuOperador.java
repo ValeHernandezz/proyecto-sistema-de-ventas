@@ -84,21 +84,6 @@ public class MenuOperador extends JPanel {
 		buttonCompras.setBounds(26, 200, 147, 21);
 		panelMenuOperador.add(buttonCompras);
 		
-		JButton buttonCuentasCorrientes = new JButton("Cuentas Corrientes");
-		buttonCuentasCorrientes.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				
-				CuentasCorrientesPanel cuentasCorrientesPanel = new CuentasCorrientesPanel();
-				cuentasCorrientesPanel.setSize(798, 550);
-				cuentasCorrientesPanel.setLocation(0, 0);
-				panel.mostrarPanelContent(cuentasCorrientesPanel);
-				
-			}
-		});
-		buttonCuentasCorrientes.setFont(new Font("Cambria", Font.PLAIN, 12));
-		buttonCuentasCorrientes.setBounds(26, 300, 147, 21);
-		panelMenuOperador.add(buttonCuentasCorrientes);
-		
 		JLabel labelNombreCompleto = new JLabel(oPersona.getNombreCompleto());
 		labelNombreCompleto.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNombreCompleto.setFont(new Font("Cambria", Font.PLAIN, 13));

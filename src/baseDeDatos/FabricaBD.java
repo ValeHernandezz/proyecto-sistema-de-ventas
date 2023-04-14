@@ -51,14 +51,6 @@ public class FabricaBD {
 		
 	}
 	
-	public ArrayList<Persona> buscarPersona(String documento) {
-		
-		ArrayList<Persona> listaPersonas = DAOPersona.buscarPersona(documento);
-		
-		return listaPersonas;
-		
-	}
-	
 	public ArrayList<Persona> buscarPersona(String datos, String filtro){
 		
 		ArrayList<Persona> listaPersonas = oDAOPersona.buscarPersona(datos, filtro);
