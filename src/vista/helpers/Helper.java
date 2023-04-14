@@ -74,7 +74,7 @@ public class Helper {
 	public static boolean esUnaFechaValida(int dia, int mes, int anio) {
 		
 		if (dia > 31 || mes > 12 || anio > 2005 || anio < 1930) {
-			JOptionPane.showMessageDialog(null, "Fecha invalida", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Fecha inválida", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 			
 		}else {
