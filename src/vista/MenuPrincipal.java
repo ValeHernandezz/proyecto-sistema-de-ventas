@@ -2,15 +2,23 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import vista.helpers.ImagenTextura;
+
 import java.awt.Color;
 
 public class MenuPrincipal implements MostrarPanel {
 
-	private JFrame frame;
+	private JFrame frmSistemaDeVentas;
+	private LoginPanel loginPanel;
 	private JPanel panelMenu = new JPanel();
 	private JPanel panelContent = new JPanel();
+	private ImagenTextura imagenTextura = new ImagenTextura();
 
 	/**
 	 * Ejecución de la aplicación
@@ -20,7 +28,7 @@ public class MenuPrincipal implements MostrarPanel {
 			public void run() {
 				try {
 					MenuPrincipal window = new MenuPrincipal();
-					window.frame.setVisible(true);
+					window.frmSistemaDeVentas.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,28 +65,42 @@ public class MenuPrincipal implements MostrarPanel {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.getContentPane().setBackground(new Color(172, 249, 214));
-		frame.setBounds(100, 100, 1042, 607);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
+		frmSistemaDeVentas = new JFrame();
+		
+		// Cargar la imagen del icono
+		ImageIcon icono = new ImageIcon(MenuPrincipal.class.getResource("/vista/imagenes/LogoApp.png"));
+		// Obtener la imagen del icono y ajustar su tamaño
+		Image imagenIcono = icono.getImage();
+		ImageIcon iconoEscalado = new ImageIcon(imagenIcono.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+		// Establecer el icono escalado en la ventana
+		frmSistemaDeVentas.setIconImage(iconoEscalado.getImage());
+		
+		frmSistemaDeVentas.setTitle("Sistema de Ventas");
+		frmSistemaDeVentas.setResizable(false);
+		frmSistemaDeVentas.getContentPane().setBackground(new Color(172, 249, 214));
+		frmSistemaDeVentas.setBounds(100, 100, 1042, 607);
+		frmSistemaDeVentas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSistemaDeVentas.getContentPane().setLayout(null);
+		frmSistemaDeVentas.setLocationRelativeTo(null);
+		
 
-		LoginPanel loginPanel = new LoginPanel(this);
+		loginPanel = new LoginPanel(this);
 		loginPanel.setSize(1028, 570);
 		loginPanel.setLocation(0, 0);
 		mostrarPanelContent(loginPanel);
 		panelContent.setBackground(new Color(192, 192, 192));
 		panelContent.setBounds(0, 0, 1028, 570);
-		frame.getContentPane().add(panelContent);
+		frmSistemaDeVentas.getContentPane().add(panelContent);
 		panelContent.setLayout(null);
 		panelMenu.setBackground(new Color(117, 236, 164));
 		panelMenu.setBounds(10, 10, 200, 550);
 
-		frame.getContentPane().add(panelMenu);
-		frame.getContentPane().add(panelMenu);
+		frmSistemaDeVentas.getContentPane().add(panelMenu);
+		frmSistemaDeVentas.getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
+		
+		imagenTextura.setBounds(0, 0, 1200, 1200);
+		frmSistemaDeVentas.add(imagenTextura);
 
 	}
 
@@ -95,6 +117,6 @@ public class MenuPrincipal implements MostrarPanel {
 		panelContent.revalidate();
 		panelContent.repaint();
 
-	}
+	}	
 
 }

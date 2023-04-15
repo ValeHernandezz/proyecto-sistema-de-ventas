@@ -2,13 +2,14 @@ package vista.helpers;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class ImagenUtec extends JPanel {
+public class ImagenCompras extends JPanel {
 
-	public ImagenUtec() {
-		this.setSize(200, 300); // Se selecciona el tamaño del panel
+	public ImagenCompras() {
+		this.setSize(739, 513); // Se selecciona el tamaño del panel
 	}
 
 	// Se crea un método cuyo parámetro debe ser un objeto Graphics
@@ -18,7 +19,7 @@ public class ImagenUtec extends JPanel {
 
 		// Se selecciona la imagen que tenemos en el paquete de la ruta del programa
 
-		ImageIcon Img = new ImageIcon(getClass().getResource("/vista/imagenes/Utec.png"));
+		ImageIcon Img = new ImageIcon(getClass().getResource("/vista/imagenes/ImagenCompras.png"));
 
 		// Se dibuja la imagen que tenemos en el paquete Imagenes dentro de un panel
 
@@ -26,6 +27,7 @@ public class ImagenUtec extends JPanel {
 
 		setOpaque(false);
 		super.paintComponent(grafico);
+
 	}
 
 }

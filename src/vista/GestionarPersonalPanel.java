@@ -14,18 +14,19 @@ import vista.helpers.Helper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.border.EtchedBorder;
 
 public class GestionarPersonalPanel extends JPanel {
 	private JPanel panelPrincipal;
 	private JLabel labelGestionarPersonal;
-	
+
 	private JPanel panelBuscar;
 	private JLabel labelBuscar;
 	private JTextField textFieldBuscar;
 	private JComboBox comboBoxFiltroBuscar;
 	private JButton buttonBuscar;
 	private JButton buttonLimpiarBusqueda;
-	
+
 	private JPanel panelDatos;
 	private JLabel labelDocumento;
 	private JLabel labelNombres;
@@ -51,27 +52,31 @@ public class GestionarPersonalPanel extends JPanel {
 	private JButton buttonLimpiarCampos;
 	private JLabel labelSlash1;
 	private JLabel labelSlash2;
-	
+
 	private JButton buttonMostrarLista;
 	private JButton buttonLimpiarTabla;
-	
+
 	private JScrollPane scrollPaneTabla;
 	private JTable tabla;
-	
+
 	private Fabrica fabrica = new Fabrica();
+	private ArrayList<Persona> listaPersonas;
 
 	/**
 	 * Create the panel.
 	 */
 	public GestionarPersonalPanel() {
+		
+		this.listaPersonas = fabrica.listarPersonas();
+		
 		setLayout(null);
 
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(new Color(145, 242, 189));
+		panelPrincipal.setBackground(Color.decode("#9ED7E2"));
 		panelPrincipal.setBounds(0, 0, 798, 550);
 		add(panelPrincipal);
 		panelPrincipal.setLayout(null);
-		
+
 		labelGestionarPersonal = new JLabel("Gestionar Personal");
 		labelGestionarPersonal.setBounds(156, 16, 486, 36);
 		labelGestionarPersonal.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,22 +84,23 @@ public class GestionarPersonalPanel extends JPanel {
 		panelPrincipal.add(labelGestionarPersonal);
 
 		panelBuscar = new JPanel();
+		panelBuscar.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		panelBuscar.setBounds(36, 68, 725, 56);
-		panelBuscar.setBackground(new Color(122, 239, 175));
+		panelBuscar.setBackground(new Color(124, 200, 216));
 		panelPrincipal.add(panelBuscar);
 		panelBuscar.setLayout(null);
-		
+
 		labelBuscar = new JLabel("Buscar");
 		labelBuscar.setFont(new Font("Cambria", Font.BOLD, 15));
 		labelBuscar.setBounds(35, 21, 67, 13);
 		panelBuscar.add(labelBuscar);
-		
+
 		textFieldBuscar = new JTextField();
 		textFieldBuscar.setFont(new Font("Cambria", Font.PLAIN, 13));
 		textFieldBuscar.setBounds(107, 18, 145, 19);
 		panelBuscar.add(textFieldBuscar);
 		textFieldBuscar.setColumns(10);
-		
+
 		comboBoxFiltroBuscar = new JComboBox();
 		comboBoxFiltroBuscar.setModel(new DefaultComboBoxModel(
 				new String[] { "Seleccione un filtro", "Nombres", "Apellidos", "Documento", "Rol" }));
@@ -128,20 +134,36 @@ public class GestionarPersonalPanel extends JPanel {
 
 				}
 
+				boolean esUnNumero = true;
+				boolean esUnaCedulaValida = true;
+
+				if (filtros.equals("Documento")) {
+					esUnNumero = Helper.esUnDocumento(datos);
+
+					if (!esUnNumero) {
+						return;
+					}
+
+					esUnaCedulaValida = Helper.validarCedulaUruguaya(datos);
+					if (!esUnaCedulaValida) {
+						JOptionPane.showMessageDialog(null, "Debe ingresar una cédula válida", "Aviso",
+								JOptionPane.INFORMATION_MESSAGE);
+						return;
+					}
+
+				}
+
 				ArrayList<Persona> listaPersonas = fabrica.buscarPersona(datos, filtros);
 
 				if (listaPersonas.size() != 0) {
-
 					if (!filtros.equals("Documento")) {
 
 						limpiarCamposDeBusqueda();
 						TableModelPersona tablaPersonas = new TableModelPersona(listaPersonas);
 						tabla.setModel(tablaPersonas);
-						System.out.println("Entro acá");
 						return;
 
 					} else {
-
 						for (Persona p : listaPersonas) {
 
 							limpiarCamposDeBusqueda();
@@ -150,6 +172,7 @@ public class GestionarPersonalPanel extends JPanel {
 							String anio = String.valueOf(p.getFechaNacimiento().getYear());
 							textFieldDocumento.setText(p.getDocumento());
 							textFieldDocumento.setEditable(false);
+							passwordFieldClave.setEditable(false);
 							textFieldNombre1.setText(p.getNombre1());
 							textFieldNombre2.setText(p.getNombre2());
 							textFieldApellido1.setText(p.getApellido1());
@@ -190,8 +213,9 @@ public class GestionarPersonalPanel extends JPanel {
 		panelBuscar.add(buttonLimpiarBusqueda);
 
 		panelDatos = new JPanel();
+		panelDatos.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		panelDatos.setBounds(36, 140, 725, 207);
-		panelDatos.setBackground(new Color(122, 239, 175));
+		panelDatos.setBackground(new Color(124, 200, 216));
 		panelPrincipal.add(panelDatos);
 		panelDatos.setLayout(null);
 
@@ -339,7 +363,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		textFieldAnio.setColumns(10);
-		textFieldAnio.setBounds(287, 128, 32, 19);
+		textFieldAnio.setBounds(287, 128, 43, 19);
 		textFieldAnio.setForeground(Color.DARK_GRAY);
 		textFieldAnio.setText("Año");
 		panelDatos.add(textFieldAnio);
@@ -373,31 +397,46 @@ public class GestionarPersonalPanel extends JPanel {
 				String apellido1 = textFieldApellido1.getText();
 				String apellido2 = textFieldApellido2.getText();
 
-				boolean esUnaFecha = Helper.comprobarFecha(textFieldDia.getText(), textFieldMes.getText(),
-						textFieldAnio.getText());
-				if (!esUnaFecha) {
-					return;
-				}
-
-				int dia = Integer.parseInt(textFieldDia.getText());
-				int mes = Integer.parseInt(textFieldMes.getText());
-				int anio = Integer.parseInt(textFieldAnio.getText());
 				int idRol = comboBoxRol.getSelectedIndex();
 				String mail = textFieldMail.getText();
 				String clave = passwordFieldClave.getText();
 
 				if (documento.length() < 6 || nombre1.length() < 3 || apellido1.length() < 3 || apellido2.length() < 3
-						|| dia > 31 || mes > 12 || anio > 2005 || anio < 1930 || idRol == 0 || mail.length() < 6
-						|| clave.length() < 3) {
+						|| textFieldDia.equals("Día") || textFieldDia.equals("Mes") || textFieldAnio.equals("Año")
+						|| idRol == 0 || mail.length() < 6 || clave.length() < 3) {
 
-					JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Debe completar todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 
 				}
+				boolean esUnaFecha = Helper.comprobarFecha(textFieldDia.getText(), textFieldMes.getText(),
+						textFieldAnio.getText());
+				if (!esUnaFecha) {
+					return;
+				}
+				
+				int dia = Integer.parseInt(textFieldDia.getText());
+				int mes = Integer.parseInt(textFieldMes.getText());
+				int anio = Integer.parseInt(textFieldAnio.getText());
+				
+				boolean esUnaFechaValida = Helper.esUnaFechaValida(dia, mes, anio);				
+				if(!esUnaFechaValida) {
+					return;
+				}
+				
+				boolean esUnNumero = true;
+				boolean esUnaCedulaValida = true;
 
-				boolean esUnDocumento = Helper.esUnDocumento(documento);
-				if (!esUnDocumento) {
+				esUnNumero = Helper.esUnDocumento(documento);
+
+				if (!esUnNumero) {
+					return;
+				}
+
+				esUnaCedulaValida = Helper.validarCedulaUruguaya(documento);
+				if (!esUnaCedulaValida) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar una cédula válida", "Aviso",
+							JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
 
@@ -409,7 +448,9 @@ public class GestionarPersonalPanel extends JPanel {
 				boolean respuesta = fabrica.registrarPersona(oPersona);
 
 				if (respuesta) {
-
+					
+					listaPersonas = fabrica.listarPersonas();
+					actualizarListaPersonas();
 					JOptionPane.showMessageDialog(null, "Se ha ingresado una persona correctamente", "Éxito",
 							JOptionPane.INFORMATION_MESSAGE);
 					limpiarCampos();
@@ -427,10 +468,10 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		buttonRegistrar.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonRegistrar.setBounds(393, 164, 85, 21);
+		buttonRegistrar.setBounds(395, 164, 85, 21);
 		panelDatos.add(buttonRegistrar);
 
-		buttonModificar = new JButton("Modificar");
+		buttonModificar = new JButton("Editar");
 		buttonModificar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -476,20 +517,33 @@ public class GestionarPersonalPanel extends JPanel {
 				Persona oPersona = new Persona(documento, nombre1, nombre2, apellido1, apellido2, fechaNacimiento,
 						idRol, mail);
 
-				boolean respuesta = fabrica.editarPersona(oPersona);
+				int deseaEditarPersona = JOptionPane.showConfirmDialog(null,
+						"¿Está seguro que desea editar los datos de esta persona?", "Confirmación",
+						JOptionPane.YES_NO_OPTION);
+				if (deseaEditarPersona == 0) {
 
-				if (respuesta) {
+					boolean respuesta = fabrica.editarPersona(oPersona);
 
-					JOptionPane.showMessageDialog(null, "Se ha modificado la persona correctamente", "Éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-					limpiarCampos();
-					textFieldDocumento.setText(null);
-					return;
+					if (respuesta) {
+						
+						listaPersonas = fabrica.listarPersonas();
+						actualizarListaPersonas();
+						JOptionPane.showMessageDialog(null, "Se ha modificado la persona correctamente", "Éxito",
+								JOptionPane.INFORMATION_MESSAGE);
+						limpiarCampos();
+						textFieldDocumento.setText(null);
+						return;
+
+					} else {
+
+						JOptionPane.showMessageDialog(null, "No existe la persona que desea modificar", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+
+					}
 
 				} else {
 
-					JOptionPane.showMessageDialog(null, "No existe la persona que desea modificar", "Error",
-							JOptionPane.ERROR_MESSAGE);
 					return;
 
 				}
@@ -497,7 +551,7 @@ public class GestionarPersonalPanel extends JPanel {
 			}
 		});
 		buttonModificar.setFont(new Font("Cambria", Font.PLAIN, 13));
-		buttonModificar.setBounds(488, 164, 97, 21);
+		buttonModificar.setBounds(495, 164, 85, 21);
 		panelDatos.add(buttonModificar);
 
 		buttonEliminar = new JButton("Eliminar");
@@ -513,20 +567,48 @@ public class GestionarPersonalPanel extends JPanel {
 					return;
 
 				}
+				
+				boolean esUnNumero = true;
+				boolean esUnaCedulaValida = true;
 
-				boolean respuesta = fabrica.eliminarPersona(documento);
+				esUnNumero = Helper.esUnDocumento(documento);
 
-				if (respuesta) {
-
-					JOptionPane.showMessageDialog(null, "La persona se ha eliminado con éxito", "Éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-					textFieldDocumento.setText(null);
+				if (!esUnNumero) {
 					return;
+				}
+
+				esUnaCedulaValida = Helper.validarCedulaUruguaya(documento);
+				if (!esUnaCedulaValida) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar una cédula válida", "Aviso",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+
+				int deseaEliminarPersona = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar esta persona?", "Confirmación", JOptionPane.YES_NO_OPTION);
+				if (deseaEliminarPersona == 0) {
+
+					boolean respuesta = fabrica.eliminarPersona(documento);
+
+					if (respuesta) {
+						
+						listaPersonas = fabrica.listarPersonas();
+						actualizarListaPersonas();
+						JOptionPane.showMessageDialog(null, "La persona ha sido eliminada con éxito", "Éxito",
+								JOptionPane.INFORMATION_MESSAGE);
+						limpiarCampos();
+						textFieldDocumento.setText(null);
+						return;
+
+					} else {
+
+						JOptionPane.showMessageDialog(null, "No ha sido posible eliminar la persona", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+
+					}
 
 				} else {
 
-					JOptionPane.showMessageDialog(null, "No se ha podido eliminar la persona", "Error",
-							JOptionPane.ERROR_MESSAGE);
 					return;
 
 				}
@@ -543,21 +625,6 @@ public class GestionarPersonalPanel extends JPanel {
 
 				limpiarCampos();
 				textFieldDocumento.setText(null);
-
-				if (textFieldDia.getText().isEmpty()) {
-					textFieldDia.setForeground(Color.DARK_GRAY);
-					textFieldDia.setText("Día");
-				}
-
-				if (textFieldMes.getText().isEmpty()) {
-					textFieldMes.setForeground(Color.DARK_GRAY);
-					textFieldMes.setText("Mes");
-				}
-
-				if (textFieldAnio.getText().isEmpty()) {
-					textFieldAnio.setForeground(Color.DARK_GRAY);
-					textFieldAnio.setText("Año");
-				}
 
 			}
 		});
@@ -581,10 +648,7 @@ public class GestionarPersonalPanel extends JPanel {
 		buttonMostrarLista.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
-				ArrayList<Persona> listaPersonas = fabrica.listarPersonas();
-
-				TableModelPersona tableModelPersona = new TableModelPersona(listaPersonas);
-				tabla.setModel(tableModelPersona);
+				actualizarListaPersonas();
 
 			}
 		});
@@ -608,7 +672,7 @@ public class GestionarPersonalPanel extends JPanel {
 		scrollPaneTabla = new JScrollPane();
 		scrollPaneTabla.setBounds(36, 400, 725, 129);
 		panelPrincipal.add(scrollPaneTabla);
-		
+
 		tabla = new JTable();
 		tabla.setFont(new Font("Cambria", Font.PLAIN, 13));
 		tabla.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null, null }, },
@@ -637,11 +701,33 @@ public class GestionarPersonalPanel extends JPanel {
 		comboBoxRol.setSelectedIndex(0);
 		textFieldMail.setText(null);
 		passwordFieldClave.setText(null);
+		textFieldDocumento.setEditable(true);
+		passwordFieldClave.setEditable(true);
+
+		if (textFieldDia.getText().isEmpty()) {
+			textFieldDia.setForeground(Color.DARK_GRAY);
+			textFieldDia.setText("Día");
+		}
+
+		if (textFieldMes.getText().isEmpty()) {
+			textFieldMes.setForeground(Color.DARK_GRAY);
+			textFieldMes.setText("Mes");
+		}
+
+		if (textFieldAnio.getText().isEmpty()) {
+			textFieldAnio.setForeground(Color.DARK_GRAY);
+			textFieldAnio.setText("Año");
+		}
 
 	}
 
 	public void limpiarCamposDeBusqueda() {
 		textFieldBuscar.setText(null);
 		comboBoxFiltroBuscar.setSelectedIndex(0);
+	}
+	
+	public void actualizarListaPersonas() {
+		TableModelPersona tableModelPersona = new TableModelPersona(listaPersonas);
+		tabla.setModel(tableModelPersona);
 	}
 }

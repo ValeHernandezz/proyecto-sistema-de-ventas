@@ -20,13 +20,9 @@ public class DataBaseManager {
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
-			System.out.println("Se encontró el Driver para Oracle DB - La librería necesaria está referenciada");
-
 			try {
 
 				conexionBaseDeDatos = DriverManager.getConnection(CONNECTION_STRING, USUARIO, CLAVE);
-
-				System.out.println("Conexión creada con éxito, es posible acceder a la base de datos");
 
 			} catch (SQLException e) {
 
